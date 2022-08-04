@@ -1,0 +1,9 @@
+<swiper style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff" [spaceBetween]="10"
+[navigation]="true" [thumbs]="{ swiper: thumbsSwiper }" class="viewer">
+<ng-template *ngFor="let item of items" swiperSlide><img [src]="item" /></ng-template>
+
+</swiper>
+<swiper (swiper)="thumbsSwiper = $event" [spaceBetween]="10" [slidesPerView]="9" [zoom]="true" [freeMode]="true"
+[watchSlidesProgress]="true" class="mySwiper">
+<ng-template *ngFor="let item of items" swiperSlide><img [src]="item" /></ng-template>
+</swiper>

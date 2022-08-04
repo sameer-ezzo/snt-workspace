@@ -1,0 +1,3 @@
+<div class="col" *ngFor="let col of viewColumns" [@slideInOut]="col.length">
+    <snt-workspace-card *ngFor="let item of col" [item]="item"></snt-workspace-card>
+</div>

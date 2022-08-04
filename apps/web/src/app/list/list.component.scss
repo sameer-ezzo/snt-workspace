@@ -1,0 +1,10 @@
+$gap: 1.5rem;
+:host {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: $gap;
+
+    &>.col>* {
+        margin-block-end: $gap;
+    }
+}
