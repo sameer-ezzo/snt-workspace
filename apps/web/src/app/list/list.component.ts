@@ -18,7 +18,7 @@ import { BaseDataService } from '../services/base-data.service';
     ])
   ]
 })
-export class ListComponent  {
+export class ListComponent {
 
   @Input() collection: 'antiques' | 'events' = 'antiques';
   items: any[] = [];
@@ -27,18 +27,25 @@ export class ListComponent  {
 
   latestFilledIndex = 0;
   viewColumns: any[] = new Array(3).fill([]).map(() => [])
-  
+
 
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
     if (changes['collection']) {
-      const items = (await this.ds.get(this.collection, 1)).map(item => { return { ...item, url: `/${this.collection === 'antiques' ? 'antique' : 'event'}/${item.slug}` } })
-      let i = 0
-      for (i = 0; i < items.length; i++) {
-        const item = items[i] as any
-        const idx = (this.latestFilledIndex + i) % this.viewColumns.length
-        this.viewColumns[idx].push(item)
+      let result = null
+      try {
+        result = await this.ds.get(this.collection, 1)
+        
+        const items = (result.data ?? []).map(item => { return { ...item, url: `/${this.collection === 'antiques' ? 'antique' : 'event'}/${item.slug}` } })
+        let i = 0
+        for (i = 0; i < items.length; i++) {
+          const item = items[i] as any
+          const idx = (this.latestFilledIndex + i) % this.viewColumns.length
+          this.viewColumns[idx].push(item)
+        }
+        this.latestFilledIndex = i
+      } catch (error) {
+        console.error(error);
       }
-      this.latestFilledIndex = i
     }
   }
 

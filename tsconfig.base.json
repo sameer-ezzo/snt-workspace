@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@snt-workspace/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@snt-workspace/models": ["libs/models/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

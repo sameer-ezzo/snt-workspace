@@ -16,6 +16,7 @@ import { LazyLoadDirective } from './lazy-load.directive';
 import { SwiperModule } from 'swiper/angular';
 import { GallrySwiperComponent } from './gallry-swiper/gallry-swiper.component';
 import { RelatedItemsSliderComponent } from './related-items-slider/related-items-slider.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RelatedItemsSliderComponent } from './related-items-slider/related-item
     AppRoutingModule,
     materialModules,
     SwiperModule,
+    HttpClientModule,
     BrowserAnimationsModule,
   ],
   providers: [ReactiveToolbarDirective, LazyLoadDirective],
