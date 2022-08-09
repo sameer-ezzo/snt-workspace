@@ -60,13 +60,13 @@ body {
 
 
 .mat-drawer-container {
-    color: $secondary;
+    color: $font-color;
     background: rgb(0, 54, 55);
     background: radial-gradient(circle, rgba(0, 54, 55, 0.9) 0%, rgba(0, 30, 30, 0.958) 100%);
 }
 
 .mat-toolbar {
-    color: $secondary;
+    color: $font-color;
     background-color: $primary-darker;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 }
