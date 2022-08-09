@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Req } from '@nestjs/common';
 import { AntiqueModel } from 'libs/models/src';
 import { AppService } from '../app.service';
 import { dates, itemImages, names, photos, prices } from './statics';
@@ -9,9 +9,19 @@ export class AntiquesController {
 
   constructor(private readonly appService: AppService) { }
 
+
+  @Get('details/:slug')
+  getAntique(@Param('slug') slug): AntiqueModel | null {
+
+    return this._data.find(item => item.slug === slug)
+  }
+
   @Get('list')
-  getData(): { total: number, data: AntiqueModel[] } {
-    return { total: this._data.length, data: this._data.slice(0, 10) };
+  getData(@Req() req): { total: number, data: AntiqueModel[] } {
+    const { page, pageSize } = req.query
+    console.log(page, pageSize)
+    
+    return { total: this._data.length, data: this._data.slice((page - 1) * pageSize, page * pageSize) }
   }
 }
 

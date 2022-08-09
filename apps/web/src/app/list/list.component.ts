@@ -20,8 +20,11 @@ import { BaseDataService } from '../services/base-data.service';
 })
 export class ListComponent {
 
-  @Input() collection: 'antiques' | 'events' = 'antiques';
+  @Input() collection: 'antiques' | 'auctions' = 'antiques';
   items: any[] = [];
+  total = 0
+  page = 1
+  pageSize = 50
 
   constructor(private ds: BaseDataService) { }
 
@@ -31,22 +34,45 @@ export class ListComponent {
 
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
     if (changes['collection']) {
-      let result = null
-      try {
-        result = await this.ds.get(this.collection, 1)
-        
-        const items = (result.data ?? []).map(item => { return { ...item, url: `/${this.collection === 'antiques' ? 'antique' : 'event'}/${item.slug}` } })
-        let i = 0
-        for (i = 0; i < items.length; i++) {
-          const item = items[i] as any
-          const idx = (this.latestFilledIndex + i) % this.viewColumns.length
-          this.viewColumns[idx].push(item)
-        }
-        this.latestFilledIndex = i
-      } catch (error) {
-        console.error(error);
-      }
+      this.page = 1
+      await this._getPageItems()
     }
+  }
+
+  private async _getPageItems() {
+    this.initializeViewColumns()
+    let result = null
+    try {
+      result = await this.ds.get(this.collection, this.page, this.pageSize)
+      this.total = result.total
+
+      const items = (result.data ?? []).map(item => { return { ...item, url: `/${this.collection === 'antiques' ? 'antique' : 'event'}/${item.slug}` } })
+      let i = 0
+      for (i = 0; i < items.length; i++) {
+        const item = items[i] as any
+        const idx = (this.latestFilledIndex + i) % this.viewColumns.length
+        this.viewColumns[idx].push(item)
+      }
+      this.latestFilledIndex = i
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  initializeViewColumns() {
+    //reset viewColumns depending on viewport width
+    this.latestFilledIndex = 0
+    this.viewColumns = new Array(3).fill([]).map(() => [])
+  }
+
+
+
+  async changePage(p: number) {
+    this.page = p
+    await this._getPageItems()
+    setTimeout(() => {
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+    }, 1000);
+
   }
 
 }

@@ -39,7 +39,7 @@ body {
 
 body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 14pt;
+    font-size: 12pt;
 }
 
 * {
@@ -62,11 +62,41 @@ body {
 .mat-drawer-container {
     color: $font-color;
     background: rgb(0, 54, 55);
-    background: radial-gradient(circle, rgba(0, 54, 55, 0.9) 0%, rgba(0, 30, 30, 0.958) 100%);
+    background: $gradient;
 }
 
 .mat-toolbar {
     color: $font-color;
     background-color: $primary-darker;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+
+
+/*paymetn card*/
+@at-root #payment-form {
+
+    .cc-wrapper:first-child {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+    
+    }
+
+
+
+    .cc-box__back, .cc-box__front {
+        background: linear-gradient(135deg,rgba(0, 54, 55, 0.9),rgba(0, 30, 30, 0.958)) !important;
+        color: $secondary;
+    }
+    .cc-form{
+        max-width: 420px;
+
+        .cc-form__button{
+            background-color: $primary;
+        }
+
+    }
 }

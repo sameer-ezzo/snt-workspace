@@ -10,7 +10,7 @@ import { map } from 'rxjs';
 })
 export class ListPageComponent  {
 
-  collection$ = this.route.data.pipe(map((x: any & { collection: 'antiques' | 'events' }) => x.collection))
+  collection$ = this.route.data.pipe(map((x: any & { collection: 'antiques' | 'auctions' }) => x.collection))
 
   constructor(private route: ActivatedRoute) { }
 }

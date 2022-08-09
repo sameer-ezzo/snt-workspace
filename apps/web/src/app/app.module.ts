@@ -17,6 +17,9 @@ import { SwiperModule } from 'swiper/angular';
 import { GallrySwiperComponent } from './gallry-swiper/gallry-swiper.component';
 import { RelatedItemsSliderComponent } from './related-items-slider/related-items-slider.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { NgPaymentCardModule } from 'ng-payment-card';
+import { PaymentFormComponent } from './payment-form/payment-form.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     LazyLoadDirective,
     GallrySwiperComponent,
     RelatedItemsSliderComponent,
+    PaginatorComponent,
+    PaymentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     SwiperModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgPaymentCardModule
   ],
   providers: [ReactiveToolbarDirective, LazyLoadDirective],
   bootstrap: [AppComponent],

@@ -20,6 +20,8 @@
     }
 
     img {
+        max-height: 540px;
+        min-height: 100px;
         width: calc(100% + 32px);
         max-width: calc(100% + 32px);
         height: auto;

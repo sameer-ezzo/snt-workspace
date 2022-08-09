@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'antiques', component: ListPageComponent, data: { collection: 'antiques' } },
-  { path: 'events', component: ListPageComponent, data: { collection: 'events' } },
+  { path: 'auctions', component: ListPageComponent, data: { collection: 'auctions' } },
   { path: 'antique/:slug', component: AntiquePageComponent },
   { path: 'event/:slug', component: EventPageComponent },
   { path: '**', redirectTo: 'home' }
