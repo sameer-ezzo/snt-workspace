@@ -1,0 +1,11 @@
+<mat-card class="card" *ngIf="item">
+    <img lazyload mat-card-image [src]="item.image" alt="{{item.name}}">
+
+    <a href="javascript:;" [routerLink]="item.url">
+        <mat-card-title>{{item.name}}</mat-card-title>
+        <mat-card-subtitle>{{item.shortDesc}}</mat-card-subtitle>
+        <mat-card-content>
+            <p>{{item.description}}</p>
+        </mat-card-content>
+    </a>
+</mat-card>

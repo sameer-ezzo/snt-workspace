@@ -1,0 +1,18 @@
+$gap: 1.5rem;
+:host {
+    display: flex;
+    flex-flow: column nowrap;
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: $gap;
+        &>.col>* {
+            display: block;
+            margin-block-end: $gap;
+        }
+        .mat-card-image {
+            min-height: 250px !important;
+            max-height: 400px !important;
+        }
+    }
+}

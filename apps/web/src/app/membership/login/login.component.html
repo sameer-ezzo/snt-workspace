@@ -1,0 +1,31 @@
+<mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+        <form #_form="ngForm" [formGroup]="form" (ngSubmit)="submit()">
+
+            <mat-form-field>
+                <input type="email" matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="password" matInput placeholder="Password" formControlName="password">
+            </mat-form-field>
+
+
+            <small *ngIf="error" class="error">
+                {{ error }}
+            </small>
+
+            <div class="button">
+                <button type="submit" [disabled]="!_form.touched || _form.invalid" mat-raised-button color="primary">Login</button>
+            </div>
+
+
+            <div class="links">
+                <span>Don't have account yet?&nbsp; <a routerLink="../signup">Sign up</a></span>
+                <span>Forgot my password&nbsp;<a routerLink="../forgot-password">Reset password</a></span>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>

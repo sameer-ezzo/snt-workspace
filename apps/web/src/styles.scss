@@ -10,7 +10,6 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 @import './theme.scss';
-
 $snt-primary: mat.define-palette(mat.$teal-palette, A700, 600, 900);
 $snt-accent: mat.define-palette(mat.$lime-palette, A200, A100, A400);
 // The warn palette is optional (defaults to red).
@@ -27,7 +26,6 @@ $snt-theme: mat.define-dark-theme((color: (primary: $snt-primary, accent: $snt-a
 @include mat.all-component-themes($snt-theme);
 
 /* You can add global styles to this file, and also import other style files */
-
 
 html,
 body {
@@ -58,7 +56,6 @@ body {
     flex: 1 1 auto;
 }
 
-
 .mat-drawer-container {
     color: $font-color;
     background: rgb(0, 54, 55);
@@ -71,10 +68,17 @@ body {
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 }
 
+.logo-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
 
 /*paymetn card*/
-@at-root #payment-form {
 
+@at-root #payment-form {
     .cc-wrapper:first-child {
         display: flex !important;
         flex-direction: row !important;
@@ -82,21 +86,26 @@ body {
         align-content: center !important;
         align-items: center !important;
         width: 100% !important;
-    
+        background-color: transparent !important;
     }
-
-
-
-    .cc-box__back, .cc-box__front {
-        background: linear-gradient(135deg,rgba(0, 54, 55, 0.9),rgba(0, 30, 30, 0.958)) !important;
+    .cc-form__label {
+        color: $font-color !important;
+    }
+    .cc-box__back,
+    .cc-box__front {
+        background: linear-gradient(135deg, rgba(0, 54, 55, 0.9), rgba(0, 30, 30, 0.958)) !important;
         color: $secondary;
     }
-    .cc-form{
+    .cc-form {
         max-width: 420px;
-
-        .cc-form__button{
+        .cc-form__button {
             background-color: $primary;
         }
-
+    }
+    @media only screen and (max-width: 1279px) {
+        .cc-box {
+            -webkit-transform: translateY(-75%);
+            transform: translateY(-75%);
+        }
     }
 }

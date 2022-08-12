@@ -1,0 +1,36 @@
+@import '../../../theme.scss';
+:host {
+    display: flex;
+    justify-content: center;
+    color: $font-color;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+mat-card-title,
+mat-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    padding: 0 1rem;
+    width: 100%;
+    color: red;
+}
+
+.button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.links {
+    display: flex;
+    flex-flow: column nowrap;
+    a {
+        text-decoration: none;
+        color: $font-color;
+    }
+}

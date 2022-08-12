@@ -1,24 +1,22 @@
 import { Module } from '@nestjs/common';
-import { AntiquesController } from './controllers/antiques.controller';
 
-import { AuctionsController } from './controllers/auctions.controller';
 import { AppService } from './app.service';
 
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-import { UsersService } from './services/users.service';
-import { AuthService, jwtConstants } from './services/auth.service';
-import { JwtStrategy } from './services/jwt-strategy';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { DataSeedsService } from './services/data-seeds.service';
+import { DataModule } from './data/data.module';
+import { AdminModule } from './admin/admin.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    PassportModule,
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '15m' },
-    }),
+    MongooseModule.forRoot('mongodb://localhost/snt-db', { connectionName: 'SNT_DB', useNewUrlParser: true }),
+    DataModule,
+    AuthModule,
+    UsersModule,
+    AdminModule,
   ],
-  controllers: [AuctionsController, AntiquesController],
-  providers: [AppService, UsersService, AuthService, JwtStrategy],
+  providers: [AppService, DataSeedsService],
 })
 export class AppModule { }

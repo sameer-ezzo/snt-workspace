@@ -1,0 +1,18 @@
+<mat-toolbar reactiveToolbar>
+    <button mat-icon-button (click)="drawer.toggle()" aria-label="toggle app menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <a class="logo-container" routerLink="/home" routerLinkActive="active" aria-label="Home">
+        <img class="app-logo" src="/assets/snt-logo.png" alt="snt antiques and auctions">
+    </a>
+    <span class="spacer"></span>
+    <a class="nav-link" color="primary" routerLink="./home" routerLinkActive="active" aria-label="Home">Home</a>
+    <a class="nav-link" color="primary" routerLink="./antiques" routerLinkActive="active" aria-label="Antiques">Antiques</a>
+    <a class="nav-link" color="primary" routerLink="./auctions" routerLinkActive="active" aria-label="Auctions">Auctions</a>
+</mat-toolbar>
+<mat-drawer-container autosize>
+    <mat-drawer #drawer mode="over"></mat-drawer>
+    <mat-drawer-content style="padding-top: 64px">
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
