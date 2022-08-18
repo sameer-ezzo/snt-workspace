@@ -4,6 +4,6 @@
 
 </swiper>
 <swiper (swiper)="thumbsSwiper = $event" [spaceBetween]="10" [slidesPerView]="9" [zoom]="true" [freeMode]="true"
-[watchSlidesProgress]="true" class="mySwiper">
+[watchSlidesProgress]="true" class="thumb-swiper">
 <ng-template *ngFor="let item of items" swiperSlide><img [src]="item" /></ng-template>
 </swiper>

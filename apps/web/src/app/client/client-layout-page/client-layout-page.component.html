@@ -7,8 +7,27 @@
     </a>
     <span class="spacer"></span>
     <a class="nav-link" color="primary" routerLink="./home" routerLinkActive="active" aria-label="Home">Home</a>
-    <a class="nav-link" color="primary" routerLink="./antiques" routerLinkActive="active" aria-label="Antiques">Antiques</a>
-    <a class="nav-link" color="primary" routerLink="./auctions" routerLinkActive="active" aria-label="Auctions">Auctions</a>
+    <a class="nav-link" color="primary" routerLink="./antiques" routerLinkActive="active"
+        aria-label="Antiques">Antiques</a>
+    <a class="nav-link" color="primary" routerLink="./auctions" routerLinkActive="active"
+        aria-label="Auctions">Auctions</a>
+    <ng-container *ngIf="cart.cart$ | async as _cart">
+
+        <a *ngIf="_cart.length" matBadge="{{_cart.length}}" matBadgeColor="warn" class="nav-link" [matMenuTriggerFor]="carMenu" aria-label="User cart menu">
+            <mat-icon>shopping_bag</mat-icon>
+        </a>
+        <mat-menu #carMenu="matMenu">
+            <a *ngFor="let item of _cart" style="color: #fff; display: flex; flex-flow: row nowrap; align-items: center; padding: 0.25rem 0.5rem;">
+                <img style="width: 50px; height: 50px; object-fit: cover; margin-inline-end: 0.5rem;" [src]="item.image" alt="{{item.name}}">
+                <span style="display: flex; flex-flow: column nowrap;">
+                    <span>{{item.name}}</span>
+                    <span>{{item.currency}} {{item.price}}</span>
+                </span>
+                <button mat-icon-button (click)="removeCartItem(item.itemId)"> <mat-icon>close</mat-icon></button>
+            </a>
+        </mat-menu>
+    </ng-container>
+
 </mat-toolbar>
 <mat-drawer-container autosize>
     <mat-drawer #drawer mode="over"></mat-drawer>

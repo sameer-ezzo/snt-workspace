@@ -43,7 +43,7 @@ export class ListComponent {
     this.initializeViewColumns()
     let result = null
     try {
-      result = await this.ds.get(this.collection, this.page, this.pageSize)
+      result = await this.ds.get(this.collection, { page: this.page, per_page: this.pageSize, select:"_id,name,slug,price,image,shortDescription,category" })
       this.total = result.total
 
       const items = (result.data ?? []).map(item => { return { ...item, url: `/client/${this.collection === 'antiques' ? 'antique' : 'auction'}/${item.slug}` } })
@@ -68,6 +68,7 @@ export class ListComponent {
   async changePage(p: number) {
     if (p === this.page) return
     this.initializeViewColumns()
+    await new Promise(resolve => setTimeout(resolve, 250))
     window.scroll({ top: 0, left: 0, behavior: 'smooth' })
     this.page = p
     await this._getPageItems()

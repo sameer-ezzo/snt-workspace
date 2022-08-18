@@ -1,0 +1,5 @@
+<ng-container *ngIf="inCart | async as isInCart">
+    <button  [color]="isInCart.color" (click)="toggle()" mat-icon-button>
+        <mat-icon>{{isInCart.icon}}</mat-icon>
+    </button>
+</ng-container>

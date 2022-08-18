@@ -5,12 +5,11 @@ import { UserSchema } from './user.schema';
 
 @Module({
   providers: [UsersService],
-  exports: [UsersService],
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/snt-db', { connectionName: 'SNT_DB', useNewUrlParser: true }),
     MongooseModule.forFeature([
-      { name: 'user', schema: UserSchema }
+      { name: 'User', collection: 'users', schema: UserSchema }
     ], 'SNT_DB')
-  ]
+  ],
+  exports: [UsersService, MongooseModule],
 })
 export class UsersModule { }

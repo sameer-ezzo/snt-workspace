@@ -22,7 +22,7 @@
 
 
             <div class="links">
-                <span>Don't have account yet?&nbsp; <a routerLink="../signup">Sign up</a></span>
+                <span>Don't have account yet?&nbsp; <a routerLink="../signup" [queryParams]="route.snapshot.queryParams">Sign up</a></span>
                 <span>Forgot my password&nbsp;<a routerLink="../forgot-password">Reset password</a></span>
             </div>
 

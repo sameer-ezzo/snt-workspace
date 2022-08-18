@@ -11,17 +11,24 @@ export class BaseDataService {
 
     constructor(private http: HttpClient) { }
 
-    private readonly _pageSize: number = 30
-    get<T extends AntiqueModel | AuctionModel>(collection: 'antiques' | 'auctions' = 'antiques', page: number = 1, pageSize: number | null = null):
-        Promise<ListResult<T>> {
-        return firstValueFrom(this.http.get<ListResult<T>>(`${environment.base}/${collection}/list?page=${page}${pageSize ? `&pageSize=${pageSize}` : ''}`))
+    private readonly _pageSize: number = 12
+    get<T extends AntiqueModel | AuctionModel>(collection: 'antiques' | 'auctions' = 'antiques',
+        query: { page: number, per_page: number } & Record<string, any> = { page: 1, per_page: this._pageSize })
+        : Promise<ListResult<T>> {
+
+        const q = { ...query }
+        if (!q.page) q['page'] = 1
+        if (!q.per_page) q['per_page'] = this._pageSize
+
+        return firstValueFrom(this.http.post<ListResult<T>>(`${environment.base}/api/${collection}`, query))
     }
 
-    find<T extends AntiqueModel | AuctionModel>(collection: 'antiques' | 'auctions' = 'antiques', slug: string): Promise<T | undefined | null> {
-        return firstValueFrom(this.http.get<T | undefined | null>(`${environment.base}/${collection}/details/${slug}`))
-
+    async find<T extends AntiqueModel | AuctionModel>(collection: 'antiques' | 'auctions' = 'antiques', slug: string): Promise<T | undefined> {
+        const res = await this.get<T>(collection, {
+            select: 'ALL',
+            slug, per_page: 1, page: 1
+        })
+        if (res.total === 0) return undefined
+        return res.data[0]
     }
-
-
-
 }

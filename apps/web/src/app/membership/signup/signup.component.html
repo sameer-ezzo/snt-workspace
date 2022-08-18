@@ -1,1 +1,30 @@
-<p>signup works!</p>
+<mat-card>
+    <mat-card-title>Sign up</mat-card-title>
+    <mat-card-content>
+        <form #_form="ngForm" [formGroup]="form" (ngSubmit)="submit()">
+
+            <mat-form-field>
+                <input type="email" matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="password" matInput placeholder="Password" formControlName="password">
+            </mat-form-field>
+
+
+            <small *ngIf="error" class="error">
+                {{ error }}
+            </small>
+
+            <div class="button">
+                <button type="submit" [disabled]="!_form.touched || _form.invalid" mat-raised-button color="primary">Login</button>
+            </div>
+
+
+            <div class="links">
+                <span>Already have an account?&nbsp; <a routerLink="../login" [queryParams]="route.snapshot.queryParams">Log in</a></span>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>

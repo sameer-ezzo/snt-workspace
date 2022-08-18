@@ -17,9 +17,9 @@ export class ApiService {
 
         if (!collection) throw new Error('Collection not found')
 
-        select ??= ''
-        const projection = select.split(',').map(x => x.trim()).filter(x => x.length).map(s => ({ [s]: 1 })).reduce((a, b) => ({ ...a, ...b }), {})
-        if(select.indexOf('_id') === -1) projection['_id'] = 0
+        select ??= 'ALL'
+        const projection = select === 'ALL' ? {} : select.split(',').map(x => x.trim()).filter(x => x.length).map(s => ({ [s]: 1 })).reduce((a, b) => ({ ...a, ...b }), {})
+        if (select !== 'ALL' && select.indexOf('_id') === -1) projection['_id'] = 0
 
         const limit = filter['per_page'] || 100
         const page = filter['page'] || 1

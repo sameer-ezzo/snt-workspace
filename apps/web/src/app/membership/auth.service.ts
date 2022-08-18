@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom, interval, merge, Observable, of, ReplaySubject, Subject, Subscription } from 'rxjs';
+import { map, filter, switchMap, tap, shareReplay } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+type Token = { access: string, refresh: string }
+export type User = { alg: "HS256", typ: "JWT", "sub": string, email: string, name: string, iat: number, roles?: string[], claims?: any }
 
 
 @Injectable({
@@ -9,15 +12,91 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  user: User | null = null
+  readonly refresh$ = new ReplaySubject<Token>(1)
+  readonly user$: Observable<User | null> = this.refresh$.pipe(
+    tap(token => console.log('token: ', token)),
+    filter((token: Token) => token['access'].length > 0 && token['refresh'].length > 0),
+    tap((token: Token) => this._updateLocalStorage(token)),
+    switchMap(token => {
+      const user = this._parseJwt(token.access)
+      const now = Date.now()
+      const iat = user?.iat ?? now
+      if (iat + (5 * 24 * 60 * 60 * 1000) < now) return of(user)
+      return this.sendRefreshCMD(token['refresh']).pipe(map(token => this._parseJwt(token.access)))
+    }),
+    tap(user => this.user = user),
+    shareReplay(1)
+  )
 
-  async login(username: string, password: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      resolve(true)
+  private _readLocalStorage(): Token {
+    return {
+      access: (localStorage.getItem('access_token') ?? '').trim(),
+      refresh: (localStorage.getItem('refresh_token') ?? '').trim()
+    } as Token
+  }
+  private _updateLocalStorage(token: Token) {
+    localStorage.setItem('access_token', token.access)
+    localStorage.setItem('refresh_token', token.refresh)
+  }
+
+
+
+  private _intervalSub: Subscription | undefined
+  constructor(private http: HttpClient) {
+    this.refresh()
+
+    this.user$.subscribe(user => {
+      console.log('user: ', user)
+
     })
-    const res = await firstValueFrom(this.http.post(`${environment.base}/auth/login`, { username, password }))
+  }
+
+  private sendRefreshCMD(refresh_token: string): Observable<Token> {
+    return this.http.post<{ access: string, refresh: string }>(`${environment.base}/auth/refresh`, { refresh_token })
+      .pipe(catchError(err => {
+        this._handleRefreshError(err)
+        throw err
+      }))
+  }
+
+
+  private _handleRefreshError(err: any) {
+    throw new Error('Method not implemented.');
+  }
+
+
+  private _parseJwt(token: string): User | null {
+    if (!token) return null
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map((c) => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+  };
+
+  refresh(token: Token = this._readLocalStorage()) {
+    console.log('refresh: ', token)
+
+    this._intervalSub?.unsubscribe()
+    this._intervalSub = interval(5 * 60 * 1000).subscribe(() => this.refresh())
+    this.refresh$.next(token)
+  }
+
+
+  async login(email: string, password: string): Promise<any> {
+    return await firstValueFrom(this.http.post(`${environment.base}/auth`, { type: 'password', payload: { email, password } }))
+
   }
   async externalLogin(service: string, credentials: any): Promise<any> {
     const res = await firstValueFrom(this.http.post(`${environment.base}/auth/externalLogin`, { service, credentials }))
+  }
+
+
+  async signup(payload: { email: string, password: string }): Promise<any> {
+
+    return await firstValueFrom(this.http.post(`${environment.base}/auth/signup`, { payload }))
   }
 }

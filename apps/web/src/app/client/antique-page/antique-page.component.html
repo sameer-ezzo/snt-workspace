@@ -1,77 +1,53 @@
-<ng-container *ngIf="antique">
+<div class="container" *ngIf="antique$ | async as _antique">
 
 
-    <snt-workspace-gallry-swiper class="slider" [items]="antique.images"></snt-workspace-gallry-swiper>
+    <snt-workspace-gallry-swiper class="slider" [items]="_antique.images"></snt-workspace-gallry-swiper>
     <div class="details-wrapper">
 
         <div class="details">
-            <h1>19th Century Double Fusee Repeating Skeleton Clock Circa 1860</h1>
-            <h4>Dateed 1992</h4>
+            <h1>{{_antique.name}}</h1>
+            <h4>{{_antique.shortDescription}}</h4>
             <h2>Description</h2>
             <div style="text-align: justify">
-                <p>A rare superb quality skeleton clock, surmounted by a bell over a twin fusee eight day movement
-                    striking the full hours on a bell.</p>
-                <p>The dial inscribed JAS WEST BOLTON. The whole clock is in superb condition with a heavy gauge frame,
-                    and visible springs, The clock stands on a stepped marble base with the original
-                    heavy gauge glass dome.
-                </p>
-
-                <p> This unique piece has a repeat pull mechanism. Despite searching the Internet I can
-                    see no other with this repeat feature.
-                </p>
-                <p>for further clocks of interest please visit our website www.frankcraigantiques.com<br>Should you
-                    have any questions please do not hesitate to contact us.</p>
-
-                <p> can arrange SHIPPING TO ANY DESTINATION </p>
-                <p>For further items of interest you’re welcome to visit our website www.frankcraigantiques.com Frank
-                    Craig Antiques have been established over 50 years.</p>
-                <p>Our experience ensures that we only select the best pieces in their category. We offer our customers
-                    a reliable service with the assurance that all our stock is thoroughly vetted as genuine antique and
-                    sold at the best possible price point. All items are sold without restoration or a minimum if
-                    required and will be in a condition commiserate with age.</p>
-                <p>The following information will assist potential purchasers: <strong>ENQUIRIES- All</strong> enquiries
-                    by either phone or e.mail are very welcome &amp; will be attended to promptly.</p>
-                <p>VIEWING - can be arranged by appointment.</p>
-                <p>PAYMENT - by bank transfer, cheque, card or cash.</p>
-                <p>DELIVERY Worldwide can be arranged We can quote for packing and shipping at the buyers risk and
-                    expense to any destination. </p>
-                <p>Internal Ref: <i>1320</i></p>
-
+                {{_antique.description}}
             </div>
-
-
-
-
         </div>
-
         <div class="side">
-
             <h2>Price</h2>
-            <span class="price" style="color:#f83030;font-size:2.125rem;">{{antique.price}}</span>
+            <span class="price" style="color:#f83030;font-size:2.125rem;">{{_antique.currency}}
+                {{_antique.price}}</span>
             <br />
-            <button mat-raised-button (click)="openPaymentFormDialog()" color="primary" class="price" style="color:#f50d0d;font-size:1.5rem;">Buy now
-            </button>
+            <div *ngIf="_antique.status === 'available'" style="display: flex; flex-flow: row nowrap; width: 100%;">
+                <button mat-raised-button (click)="openPaymentFormDialog()" color="primary" class="price"
+                    style="flex: 1 1 auto; margin-inline-end: 1rem; color:#f50d0d;font-size:1.5rem;">Buy now
+                </button>
+                <snt-workspace-add-to-card-button style="flex: 0 0 50px" [item]="_antique">
+                </snt-workspace-add-to-card-button>
+            </div>
 
             <br />
-            <div style="display: flex; justify-content: space-evenly;">
-                <span>{{antique.category}}</span>
-                <span *ngFor="let t of antique.tags">{{t}}</span>
-            </div>
-            <br />
-            <span>
-                <span class="detail-subheading">Item Number:</span> <span class="detail-subtext">SA918012</span><br>
-                <span class="detail-subheading">Date of manufacture:</span> <span
-                    class="detail-subtext">Victorian</span><br>
-                <span class="detail-subheading">Current Status:</span> <span class="detail-subtext"> For sale</span>
-            </span>
+
+            <h4>Item Number:<span>{{_antique.sku}}</span></h4>
+            <h4>Category: <span>{{_antique.category}}</span></h4>
+            <h4>Date of manufacture: <span>{{_antique.dateOfManufacture || 'Unknown'}}</span></h4>
+            <h4>Current Status:<span>{{_antique.status ===
+                    'available' ? 'For sale' : 'Sold'}} </span></h4>
+
 
 
             <h3>Dimensions</h3>
-            Height = 44 cm (17.3") <br>
-            Width = 0 cm (0.0") <br>
-            Depth = 18 cm (7.1")
+            <h4>Height:<span>44 cm (17.3")</span></h4>
+            <h4>Width:<span>0 cm (0.0")</span></h4>
+            <h4>Depth:<span>18 cm (7.1")</span></h4>
         </div>
     </div>
+</div>
 
-    <snt-workspace-related-items-slider [items]="relatedITems"></snt-workspace-related-items-slider>
+<ng-container *ngIf="similarITems | async as sis">
+    <div class="fluid parallax" id="similar-items" *ngIf="sis.length > 0">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 1rem;">Similar Products</h2>
+            <snt-workspace-related-items-slider [items]="sis"></snt-workspace-related-items-slider>
+        </div>
+    </div>
 </ng-container>

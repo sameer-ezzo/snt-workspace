@@ -15,10 +15,12 @@ import { RelatedItemsSliderComponent } from './related-items-slider/related-item
 import { NgPaymentCardModule } from 'ng-payment-card';
 import { SharedModule } from '../shared/shared.module';
 import { ClientLayoutPageComponent } from './client-layout-page/client-layout-page.component';
+import { AddToCardButtonComponent } from './add-to-card-button/add-to-card-button.component';
 
 
 @NgModule({
   declarations: [
+    AddToCardButtonComponent,
     ClientLayoutPageComponent,
     HomeComponent,
     ListPageComponent,

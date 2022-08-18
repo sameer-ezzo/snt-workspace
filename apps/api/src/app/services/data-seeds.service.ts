@@ -1,32 +1,38 @@
 import { Injectable } from "@nestjs/common";
 
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Antique } from "../schemas/antique.schema";
+import { Auction } from "../schemas/auction.schema";
+
 import { AntiqueGenerator } from "./antique.generator";
 import { AuctionGenerator } from "./auction.generator";
 
 @Injectable()
 export class DataSeedsService {
-    constructor(@InjectConnection('SNT_DB') private connection: Connection) {
+    constructor(
+        // @InjectModel('User', 'SNT_DB') private userModel: Model<User>,
+        @InjectModel('Antique', 'SNT_DB') private antiqueModel: Model<Antique>,
+        @InjectModel('Auction', 'SNT_DB') private auctionModel: Model<Auction>
+
+    ) {
         this.seed()
             .then(() => console.log('DataSeedsService seeded'))
             .catch(err => console.log('DataSeedsService failed to seed', err))
     }
 
-    async seed(): Promise<any> {
-        const collections = await this.connection.db.collections()
-        const antiques = collections.find(c => c.collectionName === 'antiques')
-        if ((await antiques.estimatedDocumentCount()) === 0) {
-            await antiques.drop()
+    async seed(): Promise<boolean> {
+       
+        if ((await this.antiqueModel?.countDocuments({})) === 0) {
+            await this.antiqueModel.collection.drop()
             const antiquesList = AntiqueGenerator.generate()
-            await antiques.insertMany(antiquesList)
+            const res = await this.antiqueModel.insertMany(antiquesList as any[])
         }
 
-        const auctions = collections.find(c => c.collectionName === 'auctions')
-        if ((await auctions.estimatedDocumentCount()) === 0) {
-            await auctions.drop()
+        if ((await this.auctionModel?.countDocuments({})) === 0) {
+            await this.auctionModel.collection.drop()
             const auctionsList = AuctionGenerator.generate()
-            await auctions.insertMany(auctionsList)
+            await this.auctionModel.insertMany(auctionsList as any[])
         }
 
         return true;

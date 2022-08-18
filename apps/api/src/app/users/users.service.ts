@@ -1,24 +1,28 @@
 import { Injectable } from '@nestjs/common';
-
-export type User = any;
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User } from './user.schema';
 
 @Injectable()
 export class UsersService {
 
-    private readonly users = [
-        {
-            userId: 1,
-            username: 'John Marston',
-            password: 'rdr1',
-        },
-        {
-            userId: 2,
-            username: 'Arthur Morgan',
-            password: 'rdr2',
-        },
-    ]
 
-    async findOne(username: string): Promise<User | undefined> {
-        return this.users.find(user => user.username === username)
+    constructor(@InjectModel('User', 'SNT_DB') private userModel: Model<User>) { }
+    
+    async findByEmail(email: string): Promise<User | undefined> {
+        return this.userModel.findOne<User>({ email })
+    }
+
+    async create(payload: { password } & Partial<User>): Promise<any> {
+
+        const { email, password } = payload
+        if (await this.findByEmail(email)) throw new Error('User already exists')
+
+        if (!email || !password) throw new Error('Invalid payload')
+        const user = { ...payload } as Partial<User>
+        if (!user.username) user.username = email
+
+        const res = await this.userModel.insertMany([user])
+        return res[0]
     }
 }

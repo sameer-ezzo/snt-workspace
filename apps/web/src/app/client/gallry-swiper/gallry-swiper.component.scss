@@ -52,19 +52,19 @@
     width: 100%;
 }
 
-.mySwiper {
-    height: 20%;
+.thumb-swiper {
+    height: calc(20% - 1rem);
     box-sizing: border-box;
-    padding: 10px 0;
+    margin-block-start: 1rem;
 }
 
-.mySwiper .swiper-slide {
+.thumb-swiper .swiper-slide {
     width: 25%;
     height: 100%;
     opacity: 0.4;
 }
 
-.mySwiper .swiper-slide-thumb-active {
+.thumb-swiper .swiper-slide-thumb-active {
     opacity: 1;
 }
 

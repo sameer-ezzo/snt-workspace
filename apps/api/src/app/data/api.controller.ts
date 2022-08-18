@@ -11,11 +11,17 @@ export class ApiController {
   @Post('**')
   @Header('Cache-Control', 'none')
   async get(@Req() req: Request) {
-    const { query, params } = req
-    const { per_page, page, select } = query
+    const { params } = req
+    const { per_page, page, select } = req.body
     const path = params?.[0]
 
-    const result = await this.api.find<any>(path, { per_page, page }, select as string)
+    const query = {...req.body}
+    delete query.per_page
+    delete query.page
+    delete query.select
+
+
+    const result = await this.api.find<any>(path, { per_page, page, ...query }, select as string)
     return result
   }
 }

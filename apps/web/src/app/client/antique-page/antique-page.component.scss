@@ -11,6 +11,7 @@
         display: flex;
         flex-flow: column nowrap;
         height: 50vh;
+        margin-block-end: 1rem;
     }
 
     .details-wrapper {
@@ -18,10 +19,9 @@
         display: flex;
         width: 100%;
 
-
-
         .details {
             display: flex;
+            flex: 1 1 auto;
             flex-flow: column nowrap;
             padding: 0.5rem;
             margin-inline-end: 1rem;
@@ -30,8 +30,14 @@
         .side {
             display: flex;
             flex-flow: column nowrap;
-            flex: 1 1 40%;
+            flex: 1 1 25%;
             padding: 0.5rem;
         }
+    }
+
+    #similar-items{
+        margin-block-start: 2.5rem;
+        padding: 2.5rem 1rem;
+        background-image: url('/assets/antiques2-bg.jpg');
     }
 }

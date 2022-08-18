@@ -1,9 +1,9 @@
 
 export class BaseModel {
-  id = 0;
+  _id = '';
   name = '';
   slug = '';
-  shortDesc = '';
+  shortDescription = '';
   description = '';
   price = 0;
   image = '';

@@ -1,31 +1,41 @@
-import { Schema, InferSchemaType } from 'mongoose';
-var passportLocalMongoose = require('passport-local-mongoose');
-const loginInfo = new Schema({
+import { Schema, InferSchemaType, ObjectId } from 'mongoose'
+import { hash } from '../hash'
+
+export const CartItemScheme = new Schema({
+    itemId: String,
+    name: String,
+    price: Number,
+    currency: String,
+    quantity: Number,
+    image: String,
+    url: String,
+    date: Date,
+    user: String,
+    status: String
+}, { _id: false })
+
+const LoginInfo = new Schema({
     status: { type: String, required: true },
     date: Date
-})
+}, { _id: false })
+
+
 
 export const UserSchema = new Schema({
-    // _id: { type: String, required: true },
     username: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, unique: true, required: true },
     passwordHash: { type: String, required: true },
     securityKey: { type: String, required: true },
-    loginAttempts: [loginInfo],
-    lastLogin: loginInfo,
+    lastLogin: LoginInfo,
     locked: { status: Boolean, date: Date },
-    favorites: Boolean,
-    avatar: String
-});
-UserSchema.plugin(passportLocalMongoose)
+    createdAt: { type: Date, default: new Date() },
+    cart: { type: [CartItemScheme], default: [] }
+}, { strict: true })
 
-export type User = InferSchemaType<typeof UserSchema>
-export type UserDocument = User & Document
+UserSchema.virtual('password').set(async function (password) {
+    this.securityKey = Math.random().toString(36).substring(7)
+    this.passwordHash = hash(password)
+})
 
-
-
-// userSchema.virtual('password').set(async function (password) {
-//     this.securityKey = Math.random().toString(36).substring(7);
-//     const salt = await bcrypt.genSalt();
-//     this.passwordHash = await bcrypt.hash(password, salt)
-// })
+export type CartItem = InferSchemaType<typeof CartItemScheme>
+export type User = { _id: string } & InferSchemaType<typeof UserSchema>

@@ -76,6 +76,19 @@ body {
 }
 
 
+.fluid{
+    width: 100%;
+    margin: 0;
+}
+
+.parallax{
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 /*paymetn card*/
 
 @at-root #payment-form {

@@ -30,6 +30,7 @@
         "bcrypt": "^5.0.1",
         "compression": "^1.7.4",
         "helmet": "^5.1.1",
+        "mongodb-client-encryption": "^2.2.0",
         "mongoose": "^6.5.2",
         "ng-payment-card": "^0.0.8",
         "passport": "^0.6.0",
