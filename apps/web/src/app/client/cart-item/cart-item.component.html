@@ -1,0 +1,9 @@
+<img style="width: 50px; height: 50px; object-fit: cover; margin-inline-end: 0.5rem;" [src]="item.image"
+  alt="{{item.name}}">
+<span style="display: flex; flex-flow: column nowrap;">
+  <span>{{item.name}}</span>
+  <span>{{item.currency}} {{item.price}}</span>
+</span>
+<button mat-icon-button (click)="removeCartItem(item.itemId)">
+  <mat-icon>close</mat-icon>
+</button>

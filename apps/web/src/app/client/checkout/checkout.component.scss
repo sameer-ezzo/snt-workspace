@@ -1,0 +1,4 @@
+.checkout-wrapper {
+    display: grid;
+    grid-template-columns: 1fr minmax(200px, 25%);
+}

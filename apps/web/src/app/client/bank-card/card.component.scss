@@ -1,0 +1,25 @@
+@import '../../../theme.scss';
+.card {
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: $primary-darker;
+    line-height: 1;
+    box-shadow: rgb(0 30 30 / 35%) 0px 4px 12px;
+    a {
+        text-decoration: none;
+        color: $font-color;
+    }
+    .mat-card {
+        background: transparent;
+    }
+    .mat-card-title {
+        color: $secondary;
+    }
+    img {
+        width: calc(100% + 32px);
+        max-width: calc(100% + 32px);
+        height: auto;
+        object-fit: cover;
+        object-position: center;
+    }
+}
