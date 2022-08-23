@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatMenuItem } from '@angular/material/menu';
+import { Router } from '@angular/router';
 import { CartItem } from '@snt-workspace/models';
 import { AuthService } from '../../membership/auth.service';
 import { CartService } from '../services/cart.service';
@@ -8,10 +10,22 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./client-layout-page.component.scss']
 })
 export class ClientLayoutPageComponent {
-  constructor(public cart: CartService, public auth: AuthService) { }
+  menuItemClicked = menuItemClickedHandler
+  constructor(public cart: CartService,
+    private router: Router,
+    public auth: AuthService) { }
 
   async removeCartItem(itemId: string) {
     await this.cart.remove(itemId)
-
   }
+  checkout() {
+    this.router.navigateByUrl('/client/checkout')
+  }
+}
+
+
+
+function menuItemClickedHandler(e: any) {
+  e.preventDefault();
+  e.stopPropagation();
 }

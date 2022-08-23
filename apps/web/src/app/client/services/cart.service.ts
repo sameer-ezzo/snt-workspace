@@ -21,8 +21,8 @@ export class CartService {
     constructor(private http: HttpClient, private auth: AuthService) { }
 
 
-    isInCart(item: CartItem | any): Observable<boolean> {
-        return this.cart$.pipe(map(cart => cart.some(x => x.itemId === item._id)))
+    isInCart(id: string): Observable<boolean> {
+        return this.cart$.pipe(map(cart => cart.some(x => x.itemId === id)))
     }
 
     async add(itemId: string, url: string) {
