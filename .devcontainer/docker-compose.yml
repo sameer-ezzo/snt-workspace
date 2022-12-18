@@ -1,0 +1,37 @@
+version: '3'
+services:
+  # redis_container:
+  #   image: redis
+  #   container_name: redis_${COMPOSE_PROJECT_NAME}
+  #   restart: always
+  mongo_container:
+    image: mongo:${MONGO_VERSION:-4.4}
+    container_name: mongo_${COMPOSE_PROJECT_NAME}
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+    restart: always
+    volumes:
+      - ../data:/data/db
+  app:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: ${COMPOSE_PROJECT_NAME}_app
+      depends_on:
+        # - redis_container
+        - mongo_container
+      volumes:
+        - ..:/home/node/workspace:cached
+        - ../libs/noah-ark:/home/node/workspace/libs/noah-ark
+        - ../libs/ss:/home/node/workspace/libs/ss
+        - ../libs/upupa:/home/node/workspace/libs/upupa
+        - vscode-server-extensions:/root/.vscode-server/extensions
+        - node_modules:/home/node/workspace/node_modules
+        - bashhistory:/bashhistory
+      command: /bin/sh -c "while sleep 1000; do :; done"
+volumes:
+  vscode-server-extensions:
+  node_modules:
+  bashhistory:
+
+# Consider clone in container feature from https://code.visualstudio.com/remote/advancedcontainers/improve-performance

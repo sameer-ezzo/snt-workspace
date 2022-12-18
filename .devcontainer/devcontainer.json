@@ -1,0 +1,68 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+    "name": "IN2",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "service": "app",
+    "workspaceFolder": "/home/node/workspace",
+    "shutdownAction": "stopCompose",
+    "extensions": [
+        "nrwl.angular-console",
+        "ms-vscode.vscode-node-azure-pack",
+        "vscode.json-language-features",
+        "vscode.css-language-features",
+        "sibiraj-s.vscode-scss-formatter",
+        "angular.ng-template",
+        "johnpapa.angular2",
+        "firsttris.vscode-jest-runner",
+        "streetsidesoftware.code-spell-checker",
+        "dbaeumer.vscode-eslint",
+        "pkief.material-icon-theme",
+        "cweijan.vscode-redis-client",
+        "sibiraj-s.vscode-scss-formatter",
+        "mutantdino.resourcemonitor"
+    ],
+    // "remoteUser": "node",
+    // "postCreateCommand": "chown node node_modules && npm i --f --verbose",
+    "postCreateCommand": "npm i --f --verbose",
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    // "features": {},
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    "forwardPorts": [
+        3001,
+        3333,
+        4200,
+        4201,
+        4202,
+        9229
+    ],
+    "hostRequirements": {
+        "cpus": 2,
+        "memory": "3gb",
+        "storage": "5gb"
+    },
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // Configure tool-specific properties.
+    "customizations": {
+        "files.exclude": {
+            "**/node_modules/**": true
+        },
+        "[json]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "[scss]": {
+            "editor.defaultFormatter": "vscode.css-language-features"
+        },
+        "[css]": {
+            "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+        },
+        "terminal.integrated.shell.osx": "/bin/zsh",
+        "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+        "editor.fontLigatures": true,
+        "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+        "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
+        "workbench.iconTheme": "material-icon-theme"
+    }
+}
