@@ -1,11 +1,22 @@
-<mat-card class="card" *ngIf="item">
-    <img lazyload mat-card-image [src]="item.image" alt="{{item.name}}">
-
-    <a href="javascript:;" [routerLink]="item.url">
-        <mat-card-title>{{item.name}}</mat-card-title>
-        <mat-card-subtitle>{{item.shortDescription}}</mat-card-subtitle>
-        <mat-card-content>
-            <p style="font-size: 1.25rem; margin: 0; text-align: end;">{{item.price}}</p>
-        </mat-card-content>
-    </a>
-</mat-card>
+<form class="cc-form" [formGroup]="form">
+    <mat-form-field class="ngx-cc-form-field">
+      <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
+      <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
+      <mat-error *ngIf="form.controls.creditCard.invalid">Card number is not valid</mat-error>
+    </mat-form-field>
+    <div class="cc-date-cvv-container">
+      <mat-form-field class="ngx-cc-form-field">
+          <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
+          <mat-placeholder>MM / YY</mat-placeholder>
+          <mat-error *ngIf="form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
+      </mat-form-field>
+      <mat-form-field class="ngx-cc-form-field">
+          <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
+          <mat-placeholder>CVV</mat-placeholder>
+          <mat-error *ngIf="form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="btn-container">
+        <button [disabled]="form.invalid" mat-raised-button color="primary">Purchase</button>
+    </div>
+  </form>
