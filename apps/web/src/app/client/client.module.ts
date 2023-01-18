@@ -16,7 +16,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ClientLayoutPageComponent } from './client-layout-page/client-layout-page.component';
 import { AddToCardButtonComponent } from './add-to-card-button/add-to-card-button.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
-import {  NgCreditCardModule } from "angular-credit-cards";
 
 
 @NgModule({
@@ -37,8 +36,7 @@ import {  NgCreditCardModule } from "angular-credit-cards";
   imports: [
     SharedModule,
     ClientRoutingModule,
-    SwiperModule,
-    NgCreditCardModule
+    SwiperModule
     ]
 })
 export class ClientModule { }
