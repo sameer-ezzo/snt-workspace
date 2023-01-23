@@ -1,4 +1,6 @@
-@import '../../../theme.scss';
+@use "@angular/material" as mat;
+@import '../../../snt-theme.scss';
+
 mat-drawer-container {
     overflow: hidden;
     overflow-y: auto;
@@ -18,11 +20,11 @@ mat-drawer-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: $secondary;
+    // color: mat.get-color-from-palette($dark-theme-background-palette, 900);
     text-decoration: none;
     &:hover,
     &:focus {
-        color: #fff;
+        color: #000;
         // background-color: $primary;
     }
     &:not(:last-child) {

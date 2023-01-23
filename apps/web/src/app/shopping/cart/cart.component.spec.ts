@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GallrySwiperComponent } from './gallry-swiper.component';
+import { CartComponent } from './cart.component';
 
-describe('GallrySwiperComponent', () => {
-  let component: GallrySwiperComponent;
-  let fixture: ComponentFixture<GallrySwiperComponent>;
+describe('CartComponent', () => {
+  let component: CartComponent;
+  let fixture: ComponentFixture<CartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GallrySwiperComponent ]
+      declarations: [ CartComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GallrySwiperComponent);
+    fixture = TestBed.createComponent(CartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

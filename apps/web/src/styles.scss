@@ -1,29 +1,11 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-// Plus imports for other components in your app.
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-@import './theme.scss';
-$snt-primary: mat.define-palette(mat.$teal-palette, A700, 600, 900);
-$snt-accent: mat.define-palette(mat.$lime-palette, A200, A100, A400);
-// The warn palette is optional (defaults to red).
-$snt-warn: mat.define-palette(mat.$red-palette);
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$snt-theme: mat.define-dark-theme((color: (primary: $snt-primary, accent: $snt-accent, warn: $snt-warn)));
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-// $primary: mat-color($snt-primary);
-// $accent: mat-color($snt-accent);
-// $warn: mat-color($snt-warn);
-@include mat.all-component-themes($snt-theme);
+@use "@angular/material" as mat;
+@import '../src/snt-theme.scss';
+
+:root {
+    --secondary: #f2a283;
+    --font-color: #ddd;
+    --primary-darker: mat.get-color-from-palette($dark-theme-background-palette, 900);
+}
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -36,7 +18,7 @@ body {
 }
 
 body {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: $snt-font-family;
     font-size: 12pt;
 }
 
@@ -50,6 +32,8 @@ body {
     display: block;
     max-width: 1180px;
     margin-inline: auto;
+    overflow: hidden;
+    width: 100%;
 }
 
 .spacer {
@@ -58,13 +42,10 @@ body {
 
 .mat-drawer-container {
     color: $font-color;
-    background: rgb(0, 54, 55);
-    background: $gradient;
 }
 
 .mat-toolbar {
     color: $font-color;
-    background-color: $primary-darker;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 }
 
@@ -73,15 +54,16 @@ body {
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
+    color: inherit;
 }
 
-
-.fluid{
+.fluid {
     width: 100%;
     margin: 0;
 }
 
-.parallax{
+.parallax {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -89,36 +71,6 @@ body {
 }
 
 
-/*paymetn card*/
-
-@at-root #payment-form {
-    .cc-wrapper:first-child {
-        display: flex !important;
-        flex-direction: column !important;
-        flex-wrap: nowrap !important;
-        align-content: center !important;
-        align-items: center !important;
-        width: 100% !important;
-        background-color: transparent !important;
-    }
-    .cc-form__label {
-        color: $font-color !important;
-    }
-    .cc-box__back,
-    .cc-box__front {
-        background: linear-gradient(135deg, rgba(0, 54, 55, 0.9), rgba(0, 30, 30, 0.958)) !important;
-        color: $secondary;
-    }
-    .cc-form {
-        max-width: 420px;
-        .cc-form__button {
-            background-color: $primary;
-        }
-    }
-    @media only screen and (max-width: 1279px) {
-        .cc-box {
-            -webkit-transform: translateY(-75%);
-            transform: translateY(-75%);
-        }
-    }
+.mat-card-image {
+    min-height: 250px;
 }

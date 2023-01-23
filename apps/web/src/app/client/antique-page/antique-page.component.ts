@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AntiqueModel } from 'libs/models/src';
 import { firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
 import { BaseDataService } from '../services/base-data.service';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../../shopping/cart.service';
 
 
 @Component({
@@ -38,9 +38,9 @@ export class AntiquePageComponent {
   async openPaymentFormDialog() {
     if (!this.antique) return
 
-    const isInCart = await firstValueFrom(this.cart.isInCart(this.antique._id))
+    const isInCart = this.cart.isInCart(this.antique._id)
     if (isInCart === false) await this.cart.add(this.antique._id, location.href)
-    this.router.navigateByUrl('/client/checkout')
+    this.router.navigateByUrl('/shopping/checkout')
   }
 
 }

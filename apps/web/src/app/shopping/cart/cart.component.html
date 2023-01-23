@@ -1,0 +1,22 @@
+<ng-container *ngIf="cart.cart$ | async as _cart">
+
+    <a *ngIf="_cart.length; else btnTemplate" matBadge="{{_cart.length}}" matBadgeColor="warn" class="nav-link"
+        [matMenuTriggerFor]="carMenu" aria-label="User cart menu">
+        <mat-icon>shopping_bag</mat-icon>
+    </a>
+    <ng-template #btnTemplate>
+        <a class="nav-link" [matMenuTriggerFor]="carMenu" aria-label="User cart menu">
+            <mat-icon>shopping_bag</mat-icon>
+        </a>
+    </ng-template>
+    <mat-menu #carMenu="matMenu">
+        <a *ngFor="let item of _cart" onclick="menuItemClicked()">
+            <snt-workspace-cart-item [item]="item"></snt-workspace-cart-item>
+        </a>
+        <button mat-menu-item (click)="checkout()"
+            style="background-color: red; width: calc(100% - 1rem); color: #fff; display: flex; flex-flow: row nowrap; align-items: center; margin: 0.5rem; padding: 0.25rem 0.5rem;">
+            <mat-icon>shopping_cart_checkout</mat-icon>
+            Check out
+        </button>
+    </mat-menu>
+</ng-container>

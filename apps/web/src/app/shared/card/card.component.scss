@@ -1,4 +1,5 @@
-@import '../../../theme.scss';
+@import '../../../snt-theme.scss';
+
 .card {
     display: flex;
     flex-flow: column nowrap;
@@ -18,6 +19,7 @@
     img {
         width: calc(100% + 32px);
         max-width: calc(100% + 32px);
+        // min-height: 450px;
         height: auto;
         object-fit: cover;
         object-position: center;

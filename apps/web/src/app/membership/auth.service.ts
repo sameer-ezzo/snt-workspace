@@ -11,13 +11,15 @@ export type User = { alg: "HS256", typ: "JWT", "sub": string, email: string, nam
   providedIn: 'root'
 })
 export class AuthService {
-
   user: User | null = null
   readonly refresh$ = new ReplaySubject<Token>(1)
+  signOut() {
+    this.refresh$.next({ access: '', refresh: '' })
+  }
+
   readonly user$: Observable<User | null> = this.refresh$.pipe(
-    tap(token => console.log('token: ', token)),
-    filter((token: Token) => token['access'].length > 0 && token['refresh'].length > 0),
-    tap((token: Token) => this._updateLocalStorage(token)),
+    tap(token => this._updateLocalStorage(token)),
+    // filter((token: Token) => token && token['access'].length > 0 && token['refresh'].length > 0),
     switchMap(token => {
       const user = this._parseJwt(token.access)
       const now = Date.now()
@@ -35,9 +37,12 @@ export class AuthService {
       refresh: (localStorage.getItem('refresh_token') ?? '').trim()
     } as Token
   }
-  private _updateLocalStorage(token: Token) {
-    localStorage.setItem('access_token', token.access)
-    localStorage.setItem('refresh_token', token.refresh)
+  private _updateLocalStorage(token: Token | null) {
+    const { access, refresh } = (token ?? {})
+    if (access) localStorage.setItem('access_token', access)
+    else localStorage.removeItem('access_token')
+    if (refresh) localStorage.setItem('refresh_token', refresh)
+    else localStorage.removeItem('refresh_token')
   }
 
 
@@ -53,6 +58,7 @@ export class AuthService {
   }
 
   private sendRefreshCMD(refresh_token: string): Observable<Token> {
+    if (!refresh_token || refresh_token.trim().length === 0) return of({ access: '', refresh: '' })
     return this.http.post<{ access: string, refresh: string }>(`${environment.base}/auth/refresh`, { refresh_token })
       .pipe(catchError(err => {
         this._handleRefreshError(err)
@@ -62,7 +68,7 @@ export class AuthService {
 
 
   private _handleRefreshError(err: any) {
-    throw new Error('Method not implemented.');
+    console.error(err)
   }
 
 

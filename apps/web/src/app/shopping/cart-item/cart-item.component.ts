@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CartItem } from '@snt-workspace/models';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../../shopping/cart.service';
 
 @Component({
   selector: 'snt-workspace-cart-item',

@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { filter, Subject, takeUntil } from 'rxjs';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'snt-workspace-checkout',

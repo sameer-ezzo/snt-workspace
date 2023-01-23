@@ -4,12 +4,12 @@ import SwiperCore, { FreeMode, Navigation, Thumbs } from 'swiper';
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
 
 @Component({
-  selector: 'snt-workspace-gallry-swiper',
-  templateUrl: './gallry-swiper.component.html',
-  styleUrls: ['./gallry-swiper.component.scss'],
+  selector: 'snt-workspace-gallery-swiper',
+  templateUrl: './gallery-swiper.component.html',
+  styleUrls: ['./gallery-swiper.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class GallrySwiperComponent {
+export class GallerySwiperComponent {
   @Input() items: string[] = []
   thumbsSwiper: any
 }

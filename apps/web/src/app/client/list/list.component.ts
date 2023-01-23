@@ -24,7 +24,7 @@ export class ListComponent {
   items: any[] = [];
   total = 0
   page = 1
-  pageSize = 25
+  pageSize = 55
 
   constructor(private ds: BaseDataService) { }
 

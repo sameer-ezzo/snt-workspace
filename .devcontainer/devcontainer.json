@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-    "name": "IN2",
+    "name": "SNT",
     "dockerComposeFile": [
         "docker-compose.yml"
     ],
@@ -12,8 +12,7 @@
         "nrwl.angular-console",
         "ms-vscode.vscode-node-azure-pack",
         "vscode.json-language-features",
-        "vscode.css-language-features",
-        "sibiraj-s.vscode-scss-formatter",
+        "kshetline.ligatures-limited",
         "angular.ng-template",
         "johnpapa.angular2",
         "firsttris.vscode-jest-runner",
@@ -22,13 +21,22 @@
         "pkief.material-icon-theme",
         "cweijan.vscode-redis-client",
         "sibiraj-s.vscode-scss-formatter",
-        "mutantdino.resourcemonitor"
+        "mutantdino.resourcemonitor",
+        "eamodio.gitlens",
+        "christian-kohler.path-intellisense",
+        "christian-kohler.npm-intellisense",
+        "esbenp.prettier-vscode"
     ],
-    // "remoteUser": "node",
-    // "postCreateCommand": "chown node node_modules && npm i --f --verbose",
-    "postCreateCommand": "npm i --f --verbose",
+    "privileged": true,
+    "remoteUser": "node",
+    // "updateRemoteUserUID": false,
+    "postCreateCommand": "sh .devcontainer/postCreateCommand.sh",
     // Features to add to the dev container. More info: https://containers.dev/features.
-    // "features": {},
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "dockerDashComposeVersion":"v2"
+        }
+    },
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [
         3001,
@@ -36,33 +44,29 @@
         4200,
         4201,
         4202,
-        9229
+        9229,
+        27017,
+        6379
     ],
+    // minimum host requirements
     "hostRequirements": {
         "cpus": 2,
         "memory": "3gb",
-        "storage": "5gb"
+        "storage": "10gb"
     },
     // Use 'postCreateCommand' to run commands after the container is created.
     // Configure tool-specific properties.
     "customizations": {
-        "files.exclude": {
-            "**/node_modules/**": true
-        },
-        "[json]": {
-            "editor.defaultFormatter": "vscode.json-language-features"
-        },
-        "[scss]": {
-            "editor.defaultFormatter": "vscode.css-language-features"
-        },
-        "[css]": {
-            "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
-        },
         "terminal.integrated.shell.osx": "/bin/zsh",
         "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
         "editor.fontLigatures": true,
         "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
         "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
-        "workbench.iconTheme": "material-icon-theme"
+        "workbench.iconTheme": "material-icon-theme",
+        "search.useIgnoreFiles": false,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
     }
 }

@@ -3,7 +3,7 @@ import { MatMenuItem } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { CartItem } from '@snt-workspace/models';
 import { AuthService } from '../../membership/auth.service';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../../shopping/cart.service';
 @Component({
   selector: 'snt-workspace-client-layout-page',
   templateUrl: './client-layout-page.component.html',
@@ -18,9 +18,9 @@ export class ClientLayoutPageComponent {
   async removeCartItem(itemId: string) {
     await this.cart.remove(itemId)
   }
-  checkout() {
-    this.router.navigateByUrl('/client/checkout')
-  }
+  
+
+  toggleAppMenu() { }
 }
 
 

@@ -1,7 +1,7 @@
 <div class="container" *ngIf="antique$ | async as _antique">
 
 
-    <snt-workspace-gallry-swiper class="slider" [items]="_antique.images"></snt-workspace-gallry-swiper>
+    <snt-workspace-gallery-swiper class="slider" [items]="_antique.images"></snt-workspace-gallery-swiper>
     <div class="details-wrapper">
 
         <div class="details">
@@ -13,13 +13,13 @@
             </div>
         </div>
         <div class="side">
-            <h2>Price</h2>
+            
             <span class="price" style="color:#f83030;font-size:2.125rem;">{{_antique.currency}}
                 {{_antique.price}}</span>
             <br />
             <div *ngIf="_antique.status === 'available'" style="display: flex; flex-flow: row nowrap; width: 100%;">
-                <button mat-raised-button (click)="openPaymentFormDialog()" color="primary" class="price"
-                    style="flex: 1 1 auto; margin-inline-end: 1rem; color:#f50d0d;font-size:1.5rem;">Buy now
+                <button mat-stroked-button (click)="openPaymentFormDialog()" color="primary" class="price"
+                    style="flex: 1 1 auto; margin-inline-end: 1rem;font-size:1.5rem;">Buy now
                 </button>
                 <snt-workspace-add-to-card-button style="flex: 0 0 50px" [item]="_antique">
                 </snt-workspace-add-to-card-button>

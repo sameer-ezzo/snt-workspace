@@ -1,0 +1,35 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+@include mat.core();
+$snt-primary: mat.define-palette(mat.$deep-purple-palette, 500);
+$snt-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$snt-warn: mat.define-palette(mat.$red-palette);
+
+$snt-theme: mat.define-dark-theme(
+    (
+        color: (
+            primary: $snt-primary,
+            accent: $snt-accent,
+            warn: $snt-warn,
+
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+    )
+);
+@include mat.core-theme($snt-theme);
+@include mat.all-component-themes($snt-theme);
+
+
+$color-config: mat.get-color-config($snt-theme);
+$primary-palette: map.get($color-config, "primary");
+$accent-palette: map.get($color-config, "accent");
+$warn-palette: map.get($color-config, "warn");
+$is-dark-theme: map.get($color-config, "is-dark");
+$typography-config: mat.get-typography-config($snt-theme);
+$snt-font-family: mat.font-family($typography-config);
+
+$secondary: mat.get-color-from-palette($accent-palette, 500);
+$font-color: #ddd;
+$primary-darker: mat.get-color-from-palette($accent-palette, 900);;

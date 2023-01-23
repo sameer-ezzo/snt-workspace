@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AntiquePageComponent } from './antique-page/antique-page.component';
-import { CheckoutComponent } from './checkout/checkout.component';
 import { ClientLayoutPageComponent } from './client-layout-page/client-layout-page.component';
 import { EventPageComponent } from './event-page/event-page.component';
 import { HomeComponent } from './home/home.component';
@@ -16,7 +15,7 @@ const routes: Routes = [
       { path: 'auctions', component: ListPageComponent, data: { collection: 'auctions' } },
       { path: 'antique/:slug', component: AntiquePageComponent },
       { path: 'event/:slug', component: EventPageComponent },
-      { path: 'checkout', component: CheckoutComponent }
+      { path: 'shopping', loadChildren: () => import('../shopping/shopping.module').then(m => m.ShoppingModule) }
     ]
   }
 ];
