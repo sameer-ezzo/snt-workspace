@@ -15,7 +15,7 @@ import { PaymentController } from './payment.controller';
 @Module({
   controllers: [CartController, PaymentController],
   imports: [
-    MongooseModule.forRoot('mongodb://mongo_snt:27017/snt-db', { connectionName: 'SNT_DB', useNewUrlParser: true }),
+    MongooseModule.forRoot('mongodb://localhost:27017/snt-db', { connectionName: 'SNT_DB', useNewUrlParser: true }),
     MongooseModule.forFeature([
       { name: 'Antique', collection: 'antiques', schema: AntiqueSchema },
       { name: 'Auction', collection: 'auctions', schema: AuctionSchema }
