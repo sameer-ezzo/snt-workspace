@@ -1,11 +1,6 @@
 @use "@angular/material" as mat;
 @import '../src/snt-theme.scss';
 
-:root {
-    --secondary: #f2a283;
-    --font-color: #ddd;
-    --primary-darker: mat.get-color-from-palette($dark-theme-background-palette, 900);
-}
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -18,7 +13,6 @@ body {
 }
 
 body {
-    font-family: $snt-font-family;
     font-size: 12pt;
 }
 
@@ -40,12 +34,9 @@ body {
     flex: 1 1 auto;
 }
 
-.mat-drawer-container {
-    color: $font-color;
-}
+
 
 .mat-toolbar {
-    color: $font-color;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 }
 

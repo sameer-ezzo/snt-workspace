@@ -1,35 +1,74 @@
-@use "sass:map";
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:meta';
+
 @include mat.core();
-$snt-primary: mat.define-palette(mat.$deep-purple-palette, 500);
-$snt-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+// https://github.com/angular/components/blob/main/src/material/core/theming/_palette.scss
+$my-primary: mat.define-palette(mat.$light-blue-palette);
+$my-accent: mat.define-palette(mat.$pink-palette);
+$my-warn: mat.define-palette(mat.$red-palette);
 
-$snt-warn: mat.define-palette(mat.$red-palette);
+// Define a dark theme
+$dark-theme: mat.define-dark-theme((color: (primary: $my-primary, accent: $my-accent, warn: $my-warn ),
+            // Only include `typography` and `density` in the default dark theme.
+            typography: mat.define-typography-config(),
+            density: 0,
+        ));
 
-$snt-theme: mat.define-dark-theme(
-    (
-        color: (
-            primary: $snt-primary,
-            accent: $snt-accent,
-            warn: $snt-warn,
+// Define a light theme
+$light-theme: mat.define-light-theme((color: (primary: $my-primary, accent: $my-accent, warn: $my-warn),
+            typography: mat.define-typography-config(),
+            density: 0,
+        ));
 
-        ),
-        typography: mat.define-typography-config(),
-        density: 0,
-    )
-);
-@include mat.core-theme($snt-theme);
-@include mat.all-component-themes($snt-theme);
+// @include mat.strong-focus-indicators-theme(#d81b60);
+// @include mat.all-component-themes($dark-theme);
+@include mat.core-theme($dark-theme);
 
 
-$color-config: mat.get-color-config($snt-theme);
-$primary-palette: map.get($color-config, "primary");
-$accent-palette: map.get($color-config, "accent");
-$warn-palette: map.get($color-config, "warn");
-$is-dark-theme: map.get($color-config, "is-dark");
-$typography-config: mat.get-typography-config($snt-theme);
-$snt-font-family: mat.font-family($typography-config);
 
-$secondary: mat.get-color-from-palette($accent-palette, 500);
-$font-color: #ddd;
-$primary-darker: mat.get-color-from-palette($accent-palette, 900);;
+@mixin paletteToCssVars($palette, $prefix) {
+
+    // Source: https://gist.github.com/shprink/3afa9de385db826ba10b2426eb94d7bd
+    @each $key,
+    $value in $palette {
+        @if #{$key}=='contrast' {
+            @include paletteToCssVars($value, $prefix + '-contrast');
+        }
+
+        @else {
+            --#{$prefix}-#{$key}: #{$value};
+        }
+    }
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+    @include mat.core-color($dark-theme);
+    @include mat.all-component-colors($dark-theme);
+
+    :root {
+        @include paletteToCssVars(mat.$dark-theme-background-palette, 'theme');
+        @include paletteToCssVars(mat.$dark-theme-foreground-palette, 'theme');
+        @include paletteToCssVars($my-primary, 'theme-primary');
+        @include paletteToCssVars($my-accent, 'theme-accent');
+        @include paletteToCssVars($my-warn, 'theme-warn');
+    }
+}
+
+// Apply the light theme only when the user prefers light themes.
+@media (prefers-color-scheme: light) {
+    @include mat.core-color($light-theme);
+    @include mat.all-component-colors($light-theme);
+
+
+    :root {
+        @include paletteToCssVars(mat.$light-theme-background-palette, 'theme');
+        @include paletteToCssVars(mat.$light-theme-foreground-palette, 'theme');
+        @include paletteToCssVars($my-primary, 'theme-primary');
+        @include paletteToCssVars($my-accent, 'theme-accent');
+        @include paletteToCssVars($my-warn, 'theme-warn');
+    }
+}
