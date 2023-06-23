@@ -52,7 +52,7 @@ export class AuthService {
     this.refresh()
 
     this.user$.subscribe(user => {
-      console.log('user: ', user)
+      // console.log('user: ', user)
 
     })
   }
@@ -84,7 +84,7 @@ export class AuthService {
   };
 
   refresh(token: Token = this._readLocalStorage()) {
-    console.log('refresh: ', token)
+    // console.log('refresh: ', token)
 
     this._intervalSub?.unsubscribe()
     this._intervalSub = interval(5 * 60 * 1000).subscribe(() => this.refresh())

@@ -24,11 +24,13 @@ export class ApiService {
         const limit = filter['per_page'] || 100
         const page = filter['page'] || 1
         const skip = (page - 1) * limit
-
+        const sort = filter.sort_by ? { [filter.sort_by]: filter.order ?? 'asc' } : { _id: 'asc' }
         delete filter['per_page']
         delete filter['page']
+        delete filter.sort_by
+        delete filter.order
 
-        const res = await collection.find(filter, { limit, skip, projection }).toArray()
+        const res = await collection.find(filter, { sort , limit, skip, projection } as any).toArray()
         const total = await collection.count(filter)
 
         return { total, data: res as any as T[] }

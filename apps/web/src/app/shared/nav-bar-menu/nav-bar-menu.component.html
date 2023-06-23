@@ -1,4 +1,3 @@
-
 <a *ngIf="!(auth.user$ | async); else userMenuTemplate" href="javascripte:;" (click)="logIn()" aria-label="Log in">
     <mat-icon>login</mat-icon>
 </a>
@@ -7,9 +6,10 @@
         <mat-icon>person</mat-icon>
     </a>
     <mat-menu #userMenu="matMenu">
+        <span mat-menu-item> {{getUserName()}}</span>
         <button mat-menu-item (click)="signOut()"
             style="background-color: red; width: calc(100% - 1rem); color: #fff; display: flex; flex-flow: row nowrap; align-items: center; margin: 0.5rem; padding: 0.25rem 0.5rem;">
-            <mat-icon>shopping_cart_checkout</mat-icon>
+            <mat-icon>logout</mat-icon>
             Sign out
         </button>
     </mat-menu>

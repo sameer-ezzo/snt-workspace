@@ -35,10 +35,10 @@
         display: flex;
         flex-flow: column nowrap;
         padding: 1rem 1rem 0 1rem;
-        border: 1px solid var(--theme-divider);
+        border-inline-start: 2px solid var(--theme-divider);
         align-self: start;
-        position: sticky;
-        top: 1rem;
+        // position: sticky;
+        // top: 1rem;
         height: auto;
 
 
@@ -52,7 +52,7 @@
                 justify-content: space-between;
             }
             h4:not(:last-of-type) {
-                border-block-end: 1px solid var(--theme-divider)
+                border-block-end: 2px dotted var(--theme-divider)
             }
 
         }

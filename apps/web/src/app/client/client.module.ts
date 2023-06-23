@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ClientLayoutPageComponent } from './client-layout-page/client-layout-page.component';
 
 import { ShoppingModule } from '../shopping/shopping.module';
+import { ScrollListenerDirective } from './list/scroll.directive';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ShoppingModule } from '../shopping/shopping.module';
     ListComponent,
     AntiquePageComponent,
     EventPageComponent,
-    RelatedItemsSliderComponent
+    RelatedItemsSliderComponent,
+    ScrollListenerDirective
   ],
   imports: [
     SharedModule,

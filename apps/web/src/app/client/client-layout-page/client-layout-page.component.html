@@ -1,50 +1,57 @@
 <mat-toolbar reactiveToolbar>
-    <button mat-icon-button (click)="toggleAppMenu()" aria-label="toggle app menu">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <a class="logo-container" routerLink="/client/antiques" routerLinkActive="active" aria-label="Home">
-        SNT
-    </a>
-    <span class="spacer"></span>
-    <a class="nav-link" color="primary" routerLink="./antiques" routerLinkActive="active"
-        aria-label="Antiques">Antiques</a>
-    <a class="nav-link" color="primary" routerLink="./auctions" routerLinkActive="active"
-        aria-label="Auctions">Auctions</a>
-    <snt-workspace-nav-bar-menu class="nav-link"></snt-workspace-nav-bar-menu>
-    <cart></cart>
+  <button mat-icon-button (click)="toggleAppMenu()" aria-label="toggle app menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a class="logo-container" routerLink="/client/antiques" routerLinkActive="active" aria-label="Home">
+    SNT
+  </a>
+  <span class="spacer"></span>
+  <a class="nav-link" color="primary" routerLink="./antiques" routerLinkActive="active"
+    aria-label="Antiques">Antiques</a>
+  <a class="nav-link" color="primary" routerLink="./auctions" routerLinkActive="active"
+    aria-label="Auctions">Auctions</a>
+  <cart style="margin-inline-end: 1rem; display: flex;
+  align-content: center; align-items: center;
+  justify-content: center; flex-direction: row;
+  flex-wrap: nowrap;"></cart>
+  <snt-workspace-nav-bar-menu class="nav-link"></snt-workspace-nav-bar-menu>
 
 </mat-toolbar>
 <mat-drawer-container autosize>
-    <mat-drawer-content style="padding-top: 64px">
-        <router-outlet></router-outlet>
-    </mat-drawer-content>
-    
-      
-</mat-drawer-container>
+  <mat-drawer-content style="padding-top: 64px">
+    <router-outlet></router-outlet>
 
-<footer>
-    <div class="container">
+
+    <footer>
+      <div class="container">
         <div class="footer-content">
-            <div class="footer-section">
-              <h3>About Us</h3>
-              <p>Immerse yourself in a treasure trove of vintage wonders and rare artifacts from bygone eras. From exquisite antique furniture to coveted collectibles, our curated collection encapsulates the timeless allure of history.</p>
-            </div>
-            <div class="footer-section">
-              <h3>Contact Us</h3>
-              <p>Email: info@ٍٍsnt.com</p>
-              <p>Phone: +1 123-456-7890</p>
-            </div>
-            <div class="footer-section">
-              <h3>Follow Us</h3>
-              <div class="social-media">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-              </div>
+          <div class="footer-section">
+            <h3>About Us</h3>
+            <p>Immerse yourself in a treasure trove of vintage wonders and rare artifacts from bygone eras. From
+              exquisite antique furniture to coveted collectibles, our curated collection encapsulates the timeless
+              allure of history.</p>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: info@ٍٍsnt.com</p>
+            <p>Phone: +1 123-456-7890</p>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-media">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
           </div>
-    </div>
-    <div class="footer-bottom">
+        </div>
+      </div>
+      <div class="footer-bottom">
         <p>&copy; 2023 SNT Site. All rights reserved.</p>
       </div>
-  </footer>
+    </footer>
+
+  </mat-drawer-content>
+
+
+</mat-drawer-container>

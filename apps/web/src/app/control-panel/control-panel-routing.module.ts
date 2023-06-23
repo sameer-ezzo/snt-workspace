@@ -5,14 +5,16 @@ import { AdminListPageComponent } from './admin-list-page/admin-list-page.compon
 import { OrdersPageComponent } from './orders-page/orders-page.component';
 import { PaymentsPageComponent } from './payments-page/payments-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
+import { EditPageComponent } from './edit-page/edit-page.component';
+import { DetailsPageComponent } from './details-page/details-page.component';
 
 const routes: Routes = [
   {
     path: '', component: AdminLayoutPageComponent, children: [
       {path:'', redirectTo:'antiques/list', pathMatch:'full'},
       { path: ':collection/list', component: AdminListPageComponent },
-      { path: ':collection/edit/:slug', component: AdminListPageComponent },
-      { path: ':collection/details/:slug', component: AdminListPageComponent },
+      { path: ':collection/edit/:slug', component: EditPageComponent },
+      { path: ':collection/details/:slug', component: DetailsPageComponent },
 
       { path: 'users/list', component: UsersPageComponent },
       { path: 'orders/list', component: OrdersPageComponent },

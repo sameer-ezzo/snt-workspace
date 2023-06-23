@@ -17,7 +17,6 @@ export class DataSeedsService {
 
     ) {
         this.seed()
-            .then(() => console.log('DataSeedsService seeded'))
             .catch(err => console.log('DataSeedsService failed to seed', err))
     }
 
@@ -27,12 +26,14 @@ export class DataSeedsService {
             await this.antiqueModel.collection.drop()
             const antiquesList = AntiqueGenerator.generate()
             const res = await this.antiqueModel.insertMany(antiquesList as any[])
+            console.log('Antiques seeded')
         }
 
         if ((await this.auctionModel?.countDocuments({})) === 0) {
             await this.auctionModel.collection.drop()
             const auctionsList = AuctionGenerator.generate()
             await this.auctionModel.insertMany(auctionsList as any[])
+            console.log('Auctions seeded')
         }
 
         return true;

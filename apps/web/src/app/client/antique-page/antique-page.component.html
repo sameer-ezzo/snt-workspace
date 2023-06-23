@@ -18,7 +18,7 @@
                 {{_antique.price}}</span>
             <br />
             <div *ngIf="_antique.status === 'available'" style="display: flex; flex-flow: row nowrap; width: 100%;">
-                <button mat-stroked-button (click)="openPaymentFormDialog()" color="primary" class="price"
+                <button mat-raised-button (click)="openPaymentFormDialog()" color="primary" class="price"
                     style="flex: 1 1 auto; margin-inline-end: 1rem;font-size:1.5rem;">Buy now
                 </button>
                 <snt-workspace-add-to-card-button style="flex: 0 0 50px" [item]="_antique">
@@ -27,20 +27,20 @@
 
             <br>
             <div class="info">
-                <h4>Item Number :<span>{{_antique.sku || 'Unknown'}}</span></h4>
-                <h4>Category : <span>{{_antique.category || 'Unknown'}}</span></h4>
-                <h4>Date of manufacture : <span>{{_antique.dateOfManufacture || 'Unknown'}}</span></h4>
-                <h4>Current Status :
+                <h4>Item Number<span>{{_antique.sku || 'Unknown'}}</span></h4>
+                <h4>Category <span>{{_antique.category || 'Unknown'}}</span></h4>
+                <h4>Date of manufacture <span>{{_antique.dateOfManufacture || 'Unknown'}}</span></h4>
+                <h4>Current Status
                     <span>{{_antique.status ===
                         'available' ? 'For sale' : 'Sold'}} 
                     </span>
                 </h4>
-                <h3 style="color:var(--theme-primary-default);">Dimensions :</h3>
-                <h4>Height:<span>44 cm (17.3")</span></h4>
+                <h3 style="color:var(--theme-primary-default);">Dimensions</h3>
+                <h4>Height<span>44 cm (17.3")</span></h4>
 
-                <h4>Width:<span>0 cm (0.0")</span></h4>
+                <h4>Width<span>0 cm (0.0")</span></h4>
 
-                <h4>Depth:<span>18 cm (7.1")</span></h4>
+                <h4>Depth<span>18 cm (7.1")</span></h4>
 
             </div>
         </div>

@@ -1,6 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, SimpleChanges } from '@angular/core';
 import { BaseDataService } from '../services/base-data.service';
+import { BehaviorSubject, debounceTime, fromEvent } from 'rxjs';
+import { ScrollEvent } from './scroll.directive';
 
 @Component({
   selector: 'snt-workspace-list',
@@ -24,9 +26,14 @@ export class ListComponent {
   items: any[] = [];
   total = 0
   page = 1
-  pageSize = 55
+  pageSize = 12
+  readonly loading$ = new BehaviorSubject(false);
+  public set loading(v: boolean) {
+    if (this.loading$.value !== v) this.loading$.next(v)
+  }
 
   constructor(private ds: BaseDataService) { }
+
 
   latestFilledIndex = 0;
   viewColumns: any[] = new Array(3).fill([]).map(() => [])
@@ -39,11 +46,12 @@ export class ListComponent {
     }
   }
 
+  // this.initializeViewColumns()
   private async _getPageItems() {
-    this.initializeViewColumns()
+    this.loading = true
     let result = null
     try {
-      result = await this.ds.get(this.collection, { page: this.page, per_page: this.pageSize, select:"_id,name,slug,price,image,shortDescription,category" })
+      result = await this.ds.get(this.collection, { page: this.page, per_page: this.pageSize, select: "_id,name,slug,price,image,shortDescription,category" })
       this.total = result.total
 
       const items = (result.data ?? []).map(item => { return { ...item, url: `/client/${this.collection === 'antiques' ? 'antique' : 'auction'}/${item.slug}` } })
@@ -57,6 +65,9 @@ export class ListComponent {
     } catch (error) {
       console.error(error);
     }
+    finally {
+      this.loading = false
+    }
   }
 
   initializeViewColumns() {
@@ -65,13 +76,22 @@ export class ListComponent {
     this.viewColumns = new Array(3).fill([]).map(() => [])
   }
 
-  async changePage(p: number) {
+  private async changePage(p: number) {
     if (p === this.page) return
-    this.initializeViewColumns()
-    await new Promise(resolve => setTimeout(resolve, 250))
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+    console.log('Change Page To: ', p);
+    
     this.page = p
     await this._getPageItems()
   }
+
+  lastScrollHeight = 0
+  onPageDown(e: ScrollEvent) {
+    if (e.top <= this.lastScrollHeight) return
+    this.changePage(this.page + 1)
+    this.lastScrollHeight = e.height
+  }
+
+
+
 
 }

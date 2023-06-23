@@ -14,5 +14,5 @@ export class NavBarMenuComponent {
 
   logIn = () => this.router.navigate(['account', 'login'], { queryParams: { redirect: this.router.url } })
   signOut = () => this.auth.signOut()
-
+  getUserName = () => (this.auth.user?.email ?? '').split('@').shift()
 }
