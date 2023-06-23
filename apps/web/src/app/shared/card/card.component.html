@@ -3,9 +3,10 @@
 
     <a href="javascript:;" [routerLink]="item.url">
         <mat-card-title>{{item.name}}</mat-card-title>
-        <mat-card-subtitle>{{item.shortDescription}}</mat-card-subtitle>
+        
         <mat-card-content>
-            <p style="font-size: 1.25rem; margin: 0; text-align: end;">{{item.price}}</p>
+            <p>{{item.shortDescription}}</p>
+            <p id="price">{{item.price}}<mat-icon>attach_money</mat-icon></p>
         </mat-card-content>
     </a>
 </mat-card>

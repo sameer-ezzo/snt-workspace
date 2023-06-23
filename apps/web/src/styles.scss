@@ -36,9 +36,9 @@ body {
 
 
 
-.mat-toolbar {
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-}
+    .mat-toolbar {
+        box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;     
+    }
 
 .logo-container {
     display: flex;
@@ -64,4 +64,7 @@ body {
 
 .mat-card-image {
     min-height: 250px;
+}
+.mat-icon{
+    color: var(--theme-primary-default)
 }

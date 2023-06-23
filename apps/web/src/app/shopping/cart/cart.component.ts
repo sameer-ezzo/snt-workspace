@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../cart.service';
 
 @Component({
-  selector: 'snt-workspace-cart',
+  selector: 'cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })

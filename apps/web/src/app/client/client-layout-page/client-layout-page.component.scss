@@ -1,6 +1,8 @@
 @use "@angular/material" as mat;
 @import '../../../snt-theme.scss';
-
+.mat-toolbar{
+    min-height: 60px;
+}
 mat-drawer-container {
     overflow: hidden;
     overflow-y: auto;
@@ -20,14 +22,15 @@ mat-drawer-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    // color: mat.get-color-from-palette($dark-theme-background-palette, 900);
+    color:var(--theme-text);
     text-decoration: none;
     &:hover,
-    &:focus {
-        color: #000;
-        // background-color: $primary;
+    &.active {
+        color: var(--theme-primary-default);
     }
     &:not(:last-child) {
         margin-inline-end: 1rem;
     }
+
+    
 }

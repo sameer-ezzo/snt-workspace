@@ -9,8 +9,7 @@ import { ListPageComponent } from './list-page/list-page.component';
 const routes: Routes = [
   {
     path: '', component: ClientLayoutPageComponent, children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
+      { path: '', redirectTo: 'antiques', pathMatch: 'full' },
       { path: 'antiques', component: ListPageComponent, data: { collection: 'antiques' } },
       { path: 'auctions', component: ListPageComponent, data: { collection: 'auctions' } },
       { path: 'antique/:slug', component: AntiquePageComponent },

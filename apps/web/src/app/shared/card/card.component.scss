@@ -3,24 +3,36 @@
 .card {
     display: flex;
     flex-flow: column nowrap;
-    // background-color: $primary-darker;
+    background-color: var(--theme-card);
     line-height: 1;
-    box-shadow: rgb(0 30 30 / 35%) 0px 4px 12px;
     a {
         text-decoration: none;
-        // color: $font-color;
+        color: var(--theme-text);
     }
     .mat-card {
         background: transparent;
     }
     .mat-card-title {
-        // color: $secondary;
+        color: var(--theme-primary-default);
+        font-size: 1.25rem;
+    }
+    .mat-card-content{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+       p{
+        margin: 0;
+        display: flex;
+        align-items: center;
+       }
+       #price{
+        font-size: 1.25rem;
+       }
     }
     img {
         width: calc(100% + 32px);
         max-width: calc(100% + 32px);
-        // min-height: 450px;
-        height: auto;
+        height: auto;   
         object-fit: cover;
         object-position: center;
     }

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'client/home', pathMatch: 'full' },
+  { path: '', redirectTo: 'client', pathMatch: 'full' },
   { path: 'client', loadChildren: () => import('./client/client.module').then(m => m.ClientModule) },
   { path: 'account', loadChildren: () => import('./membership/membership.module').then(m => m.MembershipModule) },
   { path: 'admin', loadChildren: () => import('./control-panel/control-panel.module').then(m => m.ControlPanelModule) },
