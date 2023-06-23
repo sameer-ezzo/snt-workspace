@@ -1,43 +1,71 @@
 :host {
+  padding-block-start: 1rem;
+  width: 100%;
+  overflow: hidden;
+  font-size: 12pt;
+  line-height: 1.25;
+  .container {
     display: flex;
-    padding-block-start: 1rem;
     flex-flow: column nowrap;
-    width: 100%;
-    overflow: hidden;
-    font-size: 12pt;
-    line-height: 1.25;
+    gap: 2rem;
 
     .slider {
-        display: flex;
-        flex-flow: column nowrap;
-        height: 50vh;
-        margin-block-end: 1rem;
+      display: flex;
+      flex-flow: column nowrap;
+      height: 50vh;
+      margin-block-start: 2rem;
     }
 
     .details-wrapper {
-
+      display: grid;
+      grid-template-columns: 1fr minmax(300px, 350px);
+      grid-template-areas: "details side";
+      width: 100%;
+      position: relative;
+      .details {
+        grid-area: details;
         display: flex;
-        width: 100%;
+        flex-flow: column nowrap;
+        padding: 0.5rem;
+        margin-inline-end: 1rem;
+      }
 
-        .details {
+      .side {
+        grid-area: side;
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 1rem 1rem 0 1rem;
+        border: 1px solid var(--theme-divider);
+        align-self: start;
+        position: sticky;
+        top: 1rem;
+        height: auto;
+
+
+        .info{
             display: flex;
-            flex: 1 1 auto;
             flex-flow: column nowrap;
-            padding: 0.5rem;
-            margin-inline-end: 1rem;
-        }
 
-        .side {
-            display: flex;
-            flex-flow: column nowrap;
-            flex: 1 1 25%;
-            padding: 0.5rem;
-        }
-    }
+            h4{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            h4:not(:last-of-type) {
+                border-block-end: 1px solid var(--theme-divider)
+            }
 
-    #similar-items{
-        margin-block-start: 2.5rem;
-        padding: 2.5rem 1rem;
-        background-image: url('/assets/antiques2-bg.jpg');
+        }
+      }
     }
+  }
+  #similar-items {
+    margin-block-start: 2.5rem;
+    padding: 2.5rem 1rem;
+    background-image: url("/assets/antiques2-bg.jpg");
+  }
+}
+.line{
+    background: var(--theme-divider);
+    margin-block-end: 1rem;
 }

@@ -2,11 +2,11 @@
     <img lazyImg [root]="'.mat-drawer-content'" mat-card-image [srcSet]="item.image" alt="{{item.name}}">
 
     <a href="javascript:;" [routerLink]="item.url">
-        <mat-card-title>{{item.name}}</mat-card-title>
+        <mat-card-title *ngIf="item.name.length>0">{{item.name}}</mat-card-title>
         
         <mat-card-content>
-            <p>{{item.shortDescription}}</p>
-            <p id="price">{{item.price}}<mat-icon>attach_money</mat-icon></p>
+            <p *ngIf="item.name.length>0">{{item.shortDescription}}</p>
+            <p id="price" *ngIf="item.price">{{item.price}}<mat-icon>attach_money</mat-icon></p>
         </mat-card-content>
     </a>
 </mat-card>

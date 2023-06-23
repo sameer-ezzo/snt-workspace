@@ -1,5 +1,7 @@
+
 <mat-card>
     <mat-card-title>Sign up</mat-card-title>
+    <mat-card-subtitle>Discover. Bid. Collect. Join SNT.</mat-card-subtitle>
     <mat-card-content>
         <form #_form="ngForm" [formGroup]="form" (ngSubmit)="submit()">
 
@@ -16,13 +18,15 @@
                 {{ error }}
             </small>
 
-            <div class="button">
-                <button type="submit" [disabled]="!_form.touched || _form.invalid" mat-raised-button color="primary">Login</button>
-            </div>
-
-
-            <div class="links">
-                <span>Already have an account?&nbsp; <a routerLink="../login" [queryParams]="route.snapshot.queryParams">Log in</a></span>
+            <div class="actions">
+                <div class="button">
+                    <button type="submit" [disabled]="!_form.touched || _form.invalid" mat-raised-button color="primary">Sign up</button>
+                </div>
+    
+    
+                <div class="links">
+                    <span>Already have an account?&nbsp; <a routerLink="../login" [queryParams]="route.snapshot.queryParams">Log in</a></span>
+                </div>
             </div>
 
         </form>

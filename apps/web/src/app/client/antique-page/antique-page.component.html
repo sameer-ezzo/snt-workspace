@@ -1,7 +1,7 @@
 <div class="container" *ngIf="antique$ | async as _antique">
-
-
     <snt-workspace-gallery-swiper class="slider" [items]="_antique.images"></snt-workspace-gallery-swiper>
+
+
     <div class="details-wrapper">
 
         <div class="details">
@@ -13,8 +13,8 @@
             </div>
         </div>
         <div class="side">
-            
-            <span class="price" style="color:#f83030;font-size:2.125rem;">{{_antique.currency}}
+
+            <span class="price" style="color:var(--theme-primary-default);font-size:2.125rem;">{{_antique.currency}}
                 {{_antique.price}}</span>
             <br />
             <div *ngIf="_antique.status === 'available'" style="display: flex; flex-flow: row nowrap; width: 100%;">
@@ -25,20 +25,24 @@
                 </snt-workspace-add-to-card-button>
             </div>
 
-            <br />
+            <br>
+            <div class="info">
+                <h4>Item Number :<span>{{_antique.sku || 'Unknown'}}</span></h4>
+                <h4>Category : <span>{{_antique.category || 'Unknown'}}</span></h4>
+                <h4>Date of manufacture : <span>{{_antique.dateOfManufacture || 'Unknown'}}</span></h4>
+                <h4>Current Status :
+                    <span>{{_antique.status ===
+                        'available' ? 'For sale' : 'Sold'}} 
+                    </span>
+                </h4>
+                <h3 style="color:var(--theme-primary-default);">Dimensions :</h3>
+                <h4>Height:<span>44 cm (17.3")</span></h4>
 
-            <h4>Item Number:<span>{{_antique.sku}}</span></h4>
-            <h4>Category: <span>{{_antique.category}}</span></h4>
-            <h4>Date of manufacture: <span>{{_antique.dateOfManufacture || 'Unknown'}}</span></h4>
-            <h4>Current Status:<span>{{_antique.status ===
-                    'available' ? 'For sale' : 'Sold'}} </span></h4>
+                <h4>Width:<span>0 cm (0.0")</span></h4>
 
+                <h4>Depth:<span>18 cm (7.1")</span></h4>
 
-
-            <h3>Dimensions</h3>
-            <h4>Height:<span>44 cm (17.3")</span></h4>
-            <h4>Width:<span>0 cm (0.0")</span></h4>
-            <h4>Depth:<span>18 cm (7.1")</span></h4>
+            </div>
         </div>
     </div>
 </div>
@@ -46,7 +50,7 @@
 <ng-container *ngIf="similarITems | async as sis">
     <div class="fluid parallax" id="similar-items" *ngIf="sis.length > 0">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 1rem;">Similar Products</h2>
+            <h2 style="text-align: center; margin-bottom: 1rem; font-size:2.125rem;">Similar Products</h2>
             <snt-workspace-related-items-slider [items]="sis"></snt-workspace-related-items-slider>
         </div>
     </div>
