@@ -13,6 +13,7 @@ import { ClientLayoutPageComponent } from './client-layout-page/client-layout-pa
 
 import { ShoppingModule } from '../shopping/shopping.module';
 import { ScrollListenerDirective } from './list/scroll.directive';
+import { AuctionPageComponent } from './auction-page/auction-page.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ScrollListenerDirective } from './list/scroll.directive';
     ListPageComponent,
     ListComponent,
     AntiquePageComponent,
+    AuctionPageComponent,
     EventPageComponent,
     RelatedItemsSliderComponent,
     ScrollListenerDirective
