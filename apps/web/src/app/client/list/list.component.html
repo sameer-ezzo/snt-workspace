@@ -1,7 +1,7 @@
-<div scroll [root]="'.mat-drawer-content'" [threshold]="350" [debounceTime]="500" (down)="onPageDown($event)"
+<div scroll [root]="'.mat-drawer-content'" [threshold]="350" [debounceTime]="250" (down)="onPageDown($event)"
     class="grid">
     <div class="col" *ngFor="let col of viewColumns" [@slideInOut]="col.length">
-        <snt-workspace-card *ngFor="let item of col" [item]="item"></snt-workspace-card>
+        <snt-card *ngFor="let item of col" [item]="item"></snt-card>
     </div>
 </div>
 <p *ngIf="(loading$ | async) === true" style="text-align: center; padding: 1rem; display: block;">

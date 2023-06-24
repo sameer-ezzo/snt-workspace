@@ -4,11 +4,12 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AntiqueModel } from 'libs/models/src';
 import { filter, firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
 import { BaseDataService } from '../services/base-data.service';
-import { CartService } from '../../shopping/cart.service';
+import { CartService } from '../../shared/cart.service';
+import { getAA } from '../helpers';
 
 
 @Component({
-  selector: 'snt-workspace-antique-page',
+  selector: 'snt-antique-page',
   templateUrl: './antique-page.component.html',
   styleUrls: ['./antique-page.component.scss']
 })
@@ -31,11 +32,11 @@ export class AntiquePageComponent {
     tap(antique => this.antique = antique)
   )
 
+ 
   similarITems: Observable<AntiqueModel[]> = this.antique$.pipe(
-    switchMap(antique => this.ds.get<AntiqueModel>('antiques', { per_page: 6, page: 1 })),
-    map(res => res?.data?.map(x => { return { ...x, url: `/client/antique/${x.slug}` } }))
+    switchMap(auction => getAA(this.ds, 'antiques', 1, 6)),
+    map(res => res.result)
   )
-
 
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'snt-workspace-payments-page',
+  selector: 'snt-payments-page',
   templateUrl: './payments-page.component.html',
   styleUrls: ['./payments-page.component.scss']
 })

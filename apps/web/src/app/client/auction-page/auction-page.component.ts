@@ -4,12 +4,12 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AntiqueModel, AuctionModel } from 'libs/models/src';
 import { filter, firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
 import { BaseDataService } from '../services/base-data.service';
-import { CartService } from '../../shopping/cart.service';
-
+import { CartService } from '../../shared/cart.service';
+import { getAA } from '../helpers'
 
 @Component({
-  selector: 'snt-workspace-auction-page',
-  templateUrl:'./auction-page.component.html',
+  selector: 'snt-auction-page',
+  templateUrl: './auction-page.component.html',
   styleUrls: ['./auction-page.component.scss']
 })
 export class AuctionPageComponent {
@@ -26,14 +26,30 @@ export class AuctionPageComponent {
       document.querySelector('.mat-drawer-content')?.scrollTo({ top: 0, behavior: 'smooth' })
       if (!slug) throw new Error("No slug provided")
     }),
-    switchMap(slug => this.ds.find<AuctionModel>('auctions', slug)),
-    map(auction => ({ ...auction, url: document.location.href })),
+    switchMap(slug => this.ds.get<AuctionModel>('auctions', {
+      page: 1,
+      per_page: 1,
+      // select: '_id,name,slug,image,shortDescription,category',
+      slug,
+      lookup: {
+        from: 'antiques',
+        lf: 'antique.aid', ff: '_id', as: 'item',
+        first: true
+      }
+    }
+    )),
+    map(res => res.data.shift() as any),
+    map(auction => ({
+      ...auction,
+      antique: auction.item,
+      item: undefined, url: document.location.href
+    })),
     tap(auction => this.auction = auction)
   )
 
   similarITems: Observable<AuctionModel[]> = this.auction$.pipe(
-    switchMap(auction => this.ds.get<AuctionModel>('auctions', { per_page: 6, page: 1 })),
-    map(res => res?.data?.map(x => { return { ...x, url: `/client/auction/${x.slug}` } }))
+    switchMap(auction => getAA(this.ds, 'auctions', 1, 6)),
+    map(res => res.result)
   )
 
 

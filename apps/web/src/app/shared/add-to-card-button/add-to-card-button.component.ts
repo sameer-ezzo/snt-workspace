@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from '../cart.service';
 @Component({
-  selector: 'snt-workspace-add-to-card-button',
+  selector: 'snt-add-to-card-button',
   templateUrl: './add-to-card-button.component.html',
   styleUrls: ['./add-to-card-button.component.scss']
 })

@@ -4,7 +4,7 @@ import SwiperCore, { FreeMode, Navigation, Thumbs } from 'swiper';
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
 
 @Component({
-  selector: 'snt-workspace-gallery-swiper',
+  selector: 'snt-gallery-swiper',
   templateUrl: './gallery-swiper.component.html',
   styleUrls: ['./gallery-swiper.component.scss'],
   encapsulation: ViewEncapsulation.None

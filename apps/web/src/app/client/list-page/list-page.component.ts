@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'snt-workspace-list-page',
+  selector: 'snt-list-page',
   templateUrl: './list-page.component.html',
   styleUrls: ['./list-page.component.scss'],
   host:{class: 'container'}

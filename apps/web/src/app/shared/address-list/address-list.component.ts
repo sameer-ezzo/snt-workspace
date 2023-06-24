@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'snt-workspace-address-list',
+  selector: 'snt-address-list',
   templateUrl: './address-list.component.html',
   styleUrls: ['./address-list.component.scss']
 })

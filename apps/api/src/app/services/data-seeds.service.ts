@@ -16,22 +16,24 @@ export class DataSeedsService {
         @InjectModel('Auction', 'SNT_DB') private auctionModel: Model<Auction>
 
     ) {
-        this.seed()
+        setTimeout(() => {
+            this.seed()
             .catch(err => console.log('DataSeedsService failed to seed', err))
+        }, 5000);
     }
 
     async seed(): Promise<boolean> {
-       
         if ((await this.antiqueModel?.countDocuments({})) === 0) {
             await this.antiqueModel.collection.drop()
             const antiquesList = AntiqueGenerator.generate()
-            const res = await this.antiqueModel.insertMany(antiquesList as any[])
+            await this.antiqueModel.insertMany(antiquesList as any[])
             console.log('Antiques seeded')
         }
-
+        
         if ((await this.auctionModel?.countDocuments({})) === 0) {
+            let antiques = await this.antiqueModel.find({}, {_id:1, name:1}).lean()
             await this.auctionModel.collection.drop()
-            const auctionsList = AuctionGenerator.generate()
+            const auctionsList = AuctionGenerator.generate(antiques as any)
             await this.auctionModel.insertMany(auctionsList as any[])
             console.log('Auctions seeded')
         }

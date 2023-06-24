@@ -5,7 +5,7 @@ import { AuthService } from '../auth.service';
 import { parseAccountError } from '../parse-error';
 
 @Component({
-  selector: 'snt-workspace-login',
+  selector: 'snt-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

@@ -25,7 +25,6 @@ export class BaseDataService {
 
     async find<T extends AntiqueModel | AuctionModel>(collection: 'antiques' | 'auctions' = 'antiques', slug: string): Promise<T | undefined> {
         const res = await this.get<T>(collection, {
-            select: 'ALL',
             slug, per_page: 1, page: 1
         })
         if (res.total === 0) return undefined

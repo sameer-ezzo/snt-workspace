@@ -1,7 +1,7 @@
 import  { Schema, InferSchemaType } from 'mongoose';
 
 export const AntiqueSchema = new Schema({
-
+    _id: String,
     name: { type: String, required: true, unique: true, index: true },
     slug: { type: String, required: true, unique: true, index: true },
     shortDescription: { type: String, required: true },

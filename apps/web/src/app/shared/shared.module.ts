@@ -13,6 +13,8 @@ import { SwiperModule } from 'swiper/angular';
 import { CardComponent } from './card/card.component';
 import { RouterModule } from '@angular/router';
 import { LazyLoadImageDirective } from './lazy-load.directive';
+import { AntiqueAuctionDetailsViewComponent } from './antique-auction-details-view/antique-auction-details-view.component';
+import { AddToCardButtonComponent } from './add-to-card-button/add-to-card-button.component';
 
 
 
@@ -20,6 +22,8 @@ const declarations = [
   GallerySwiperComponent, PaginatorComponent,
   ReactiveToolbarDirective, LazyLoadImageDirective,
   CardComponent,
+  AddToCardButtonComponent,
+  AntiqueAuctionDetailsViewComponent,
   NavBarMenuComponent, AddressComponent, AddressListComponent]
 const imports = [
   CommonModule,

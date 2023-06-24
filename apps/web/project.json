@@ -1,7 +1,7 @@
 {
   "projectType": "application",
   "sourceRoot": "apps/web/src",
-  "prefix": "snt-workspace",
+  "prefix": "snt",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

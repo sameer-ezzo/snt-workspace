@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'snt-workspace-orders-page',
+  selector: 'snt-orders-page',
   templateUrl: './orders-page.component.html',
   styleUrls: ['./orders-page.component.scss']
 })

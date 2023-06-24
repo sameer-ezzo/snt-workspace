@@ -3,9 +3,9 @@ import { MatMenuItem } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { CartItem } from '@snt-workspace/models';
 import { AuthService } from '../../membership/auth.service';
-import { CartService } from '../../shopping/cart.service';
+import { CartService } from '../../shared/cart.service';
 @Component({
-  selector: 'snt-workspace-client-layout-page',
+  selector: 'snt-client-layout-page',
   templateUrl: './client-layout-page.component.html',
   styleUrls: ['./client-layout-page.component.scss']
 })

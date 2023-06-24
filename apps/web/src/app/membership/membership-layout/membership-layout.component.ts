@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'snt-workspace-membership-layout',
+  selector: 'snt-membership-layout',
   templateUrl: './membership-layout.component.html',
   styleUrls: ['./membership-layout.component.scss']
 })

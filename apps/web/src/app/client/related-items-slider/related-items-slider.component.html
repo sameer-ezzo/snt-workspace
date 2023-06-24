@@ -1,6 +1,6 @@
 <swiper [autoplay]="{delay: 2500,disableOnInteraction: false}" [spaceBetween]="20" [slidesPerView]="3" [watchSlidesProgress]="true" class="related-items-swiper">
     <ng-template *ngFor="let item of items" swiperSlide>
-        <snt-workspace-card class="slider-card" [item]="item"></snt-workspace-card>
+        <snt-card class="slider-card" [item]="item"></snt-card>
     </ng-template>
 </swiper>
 

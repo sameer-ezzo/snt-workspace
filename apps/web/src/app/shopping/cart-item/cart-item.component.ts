@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CartItem } from '@snt-workspace/models';
-import { CartService } from '../../shopping/cart.service';
+import { CartService } from '../../shared/cart.service';
 
 @Component({
-  selector: 'snt-workspace-cart-item',
+  selector: 'snt-cart-item',
   templateUrl: './cart-item.component.html',
   styleUrls: ['./cart-item.component.scss']
 })

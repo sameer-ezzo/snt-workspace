@@ -1,10 +1,11 @@
 
+import mongoose from 'mongoose';
 import { Antique } from '../schemas/antique.schema';
 import { dates, itemImages, names, photos, prices } from './statics';
 
 export class AntiqueGenerator {
-  static generate(): Partial<Antique>[] {
-    return new Array(25000).fill({}).map((item, index) => AntiqueGenerator.generateOne(index + 1));
+  static generate(count: number = 200): Partial<Antique>[] {
+    return new Array(count).fill({}).map((item, index) => AntiqueGenerator.generateOne(index + 1));
   }
   static generateOne(id: number): Partial<Antique> {
 
@@ -17,6 +18,7 @@ export class AntiqueGenerator {
     const price = parseInt(p)
 
     return {
+      _id: new mongoose.Types.ObjectId().toString(),
       name: name + id,
       slug: name.toLowerCase().replace(/\s/g, '-') + id,
       shortDescription,

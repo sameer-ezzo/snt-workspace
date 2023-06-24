@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../membership/auth.service';
 
 @Component({
-  selector: 'snt-workspace-nav-bar-menu',
+  selector: 'snt-nav-bar-menu',
   templateUrl: './nav-bar-menu.component.html',
   styleUrls: ['./nav-bar-menu.component.scss']
 })

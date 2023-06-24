@@ -5,7 +5,7 @@ import { AuthService } from '../auth.service';
 import { parseAccountError } from '../parse-error';
 
 @Component({
-  selector: 'snt-workspace-signup',
+  selector: 'snt-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })

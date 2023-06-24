@@ -1,0 +1,59 @@
+<div class="container" *ngIf="model">
+    <snt-gallery-swiper class="slider" [items]="images"></snt-gallery-swiper>
+
+
+    <div class="details-wrapper">
+
+        <div class="details">
+            <h1>{{model.name}}</h1>
+            <h4>{{model.shortDescription}}</h4>
+            <h2>Description</h2>
+            <div style="text-align: justify">
+                {{model.description}}
+            </div>
+        </div>
+        <div class="side">
+
+            <ng-container *ngIf="view === 'auction'">
+                Time:
+                Address: text + MAP :)
+                Contact phone & email as links
+
+                <iframe *ngIf="map" [src]="map" width="100%" height="300" style="border:0;" allowfullscreen=""
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            </ng-container>
+            <ng-container *ngIf="view === 'antique'">
+                <span class="price" style="color:var(--theme-primary-default);font-size:2.125rem;">{{currency}}
+                    {{price}}</span>
+                <br />
+                <div *ngIf="model.status === 'available'" style="display: flex; flex-flow: row nowrap; width: 100%;">
+                    <button mat-raised-button (click)="openPaymentFormDialog()" color="primary" class="price"
+                        style="flex: 1 1 auto; margin-inline-end: 1rem;font-size:1.5rem;">Buy now
+                    </button>
+                    <snt-add-to-card-button style="flex: 0 0 50px" [item]="model">
+                    </snt-add-to-card-button>
+                </div>
+            </ng-container>
+
+            <br>
+            <div class="info">
+
+                <h4>Category <span>{{model.category || 'Unknown'}}</span></h4>
+                <h4>Date of manufacture <span>{{dateOfManufacture || 'Unknown'}}</span></h4>
+                <h4>Current Status
+                    <span>{{model.status ===
+                        'available' ? 'For sale' : 'Sold'}}
+                    </span>
+                </h4>
+                <h3 style="color:var(--theme-primary-default);">Dimensions</h3>
+                <h4>Height<span>44 cm (17.3")</span></h4>
+
+                <h4>Width<span>0 cm (0.0")</span></h4>
+
+                <h4>Depth<span>18 cm (7.1")</span></h4>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,57 +1,13 @@
 <div class="container" *ngIf="auction$ | async as _auction">
-    <snt-workspace-gallery-swiper class="slider" [items]="_auction.images"></snt-workspace-gallery-swiper>
-
-
-    <div class="details-wrapper">
-
-        <div class="details">
-            <h1>{{_auction.name}}</h1>
-            <h4>{{_auction.shortDescription}}</h4>
-            <h2>Description</h2>
-            <div style="text-align: justify">
-                {{_auction.description}}
-            </div>
-        </div>
-        <div class="side">
-
-            <span class="price" style="color:var(--theme-primary-default);font-size:2.125rem;">{{_auction.currency}}
-                {{_auction.price}}</span>
-            <br />
-            <div *ngIf="_auction.status === 'available'" style="display: flex; flex-flow: row nowrap; width: 100%;">
-                <button mat-raised-button (click)="openPaymentFormDialog()" color="primary" class="price"
-                    style="flex: 1 1 auto; margin-inline-end: 1rem;font-size:1.5rem;">Buy now
-                </button>
-                <snt-workspace-add-to-card-button style="flex: 0 0 50px" [item]="_auction">
-                </snt-workspace-add-to-card-button>
-            </div>
-
-            <br>
-            <div class="info">
-                <h4>Item Number<span>{{_auction.sku || 'Unknown'}}</span></h4>
-                <h4>Category <span>{{_auction.category || 'Unknown'}}</span></h4>
-                <h4>Date of manufacture <span>{{_auction.dateOfManufacture || 'Unknown'}}</span></h4>
-                <h4>Current Status
-                    <span>{{_auction.status ===
-                        'available' ? 'For sale' : 'Sold'}} 
-                    </span>
-                </h4>
-                <h3 style="color:var(--theme-primary-default);">Dimensions</h3>
-                <h4>Height<span>44 cm (17.3")</span></h4>
-
-                <h4>Width<span>0 cm (0.0")</span></h4>
-
-                <h4>Depth<span>18 cm (7.1")</span></h4>
-
-            </div>
-        </div>
-    </div>
+  <snt-aa-details [model]="_auction" view="auction"></snt-aa-details>
+   
 </div>
 
 <ng-container *ngIf="similarITems | async as sis">
     <div class="fluid parallax" id="similar-items" *ngIf="sis.length > 0">
         <div class="container">
             <h2 style="text-align: center; margin-bottom: 1rem; font-size:2.125rem;">Similar Products</h2>
-            <snt-workspace-related-items-slider [items]="sis"></snt-workspace-related-items-slider>
+            <snt-related-items-slider [items]="sis"></snt-related-items-slider>
         </div>
     </div>
 </ng-container>

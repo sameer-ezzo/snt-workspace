@@ -1,10 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { filter, Subject, takeUntil } from 'rxjs';
-import { CartService } from '../cart.service';
+import { CartService } from '../../shared/cart.service';
 
 @Component({
-  selector: 'snt-workspace-checkout',
+  selector: 'snt-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
   encapsulation: ViewEncapsulation.None,

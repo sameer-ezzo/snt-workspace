@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'snt-workspace-edit-page',
+  selector: 'snt-edit-page',
   templateUrl: './edit-page.component.html',
   styleUrls: ['./edit-page.component.scss']
 })

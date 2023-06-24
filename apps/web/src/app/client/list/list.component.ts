@@ -3,9 +3,11 @@ import { AfterViewInit, Component, Input, SimpleChanges } from '@angular/core';
 import { BaseDataService } from '../services/base-data.service';
 import { BehaviorSubject, debounceTime, fromEvent } from 'rxjs';
 import { ScrollEvent } from './scroll.directive';
+import { DataService } from '../../shared/data.service';
+import { getAA, mapAAItem } from '../helpers';
 
 @Component({
-  selector: 'snt-workspace-list',
+  selector: 'snt-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   animations: [
@@ -49,15 +51,14 @@ export class ListComponent {
   // this.initializeViewColumns()
   private async _getPageItems() {
     this.loading = true
-    let result = null
     try {
-      result = await this.ds.get(this.collection, { page: this.page, per_page: this.pageSize, select: "_id,name,slug,price,image,shortDescription,category" })
-      this.total = result.total
+      const { result, total } = await getAA(this.ds, this.collection, this.page)
+      this.total = total
 
-      const items = (result.data ?? []).map(item => { return { ...item, url: `/client/${this.collection === 'antiques' ? 'antique' : 'auction'}/${item.slug}` } })
       let i = 0
-      for (i = 0; i < items.length; i++) {
-        const item = items[i] as any
+      for (i = 0; i < result.length; i++) {
+        const item = result[i] as any
+
         const idx = (this.latestFilledIndex + i) % this.viewColumns.length
         this.viewColumns[idx].push(item)
       }
@@ -79,7 +80,7 @@ export class ListComponent {
   private async changePage(p: number) {
     if (p === this.page) return
     console.log('Change Page To: ', p);
-    
+
     this.page = p
     await this._getPageItems()
   }
@@ -90,8 +91,6 @@ export class ListComponent {
     this.changePage(this.page + 1)
     this.lastScrollHeight = e.height
   }
-
-
-
-
 }
+
+

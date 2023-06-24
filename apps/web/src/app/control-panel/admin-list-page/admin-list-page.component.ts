@@ -7,7 +7,7 @@ import { catchError, debounceTime, firstValueFrom, map, merge, of, ReplaySubject
 import { DataService } from '../../shared/data.service'
 
 @Component({
-  selector: 'snt-workspace-admin-list-page',
+  selector: 'snt-admin-list-page',
   templateUrl: './admin-list-page.component.html',
   styleUrls: ['./admin-list-page.component.scss'],
 })

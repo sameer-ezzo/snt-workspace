@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 @Component({
-  selector: 'snt-workspace-admin-layout-page',
+  selector: 'snt-admin-layout-page',
   templateUrl: './admin-layout-page.component.html',
   styleUrls: ['./admin-layout-page.component.scss']
 })

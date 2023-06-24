@@ -10,7 +10,7 @@ import SwiperCore, { FreeMode, Navigation, Thumbs } from 'swiper';
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
 
 @Component({
-  selector: 'snt-workspace-related-items-slider',
+  selector: 'snt-related-items-slider',
   templateUrl: './related-items-slider.component.html',
   styleUrls: ['./related-items-slider.component.scss'],
   encapsulation: ViewEncapsulation.None,
