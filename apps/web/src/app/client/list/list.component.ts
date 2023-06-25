@@ -45,6 +45,8 @@ export class ListComponent {
     if (changes['collection']) {
       this.page = 1
       await this._getPageItems()
+      console.log(this.items);
+      
     }
   }
 
@@ -54,7 +56,8 @@ export class ListComponent {
     try {
       const { result, total } = await getAA(this.ds, this.collection, this.page)
       this.total = total
-
+      console.log(result);
+      
       let i = 0
       for (i = 0; i < result.length; i++) {
         const item = result[i] as any

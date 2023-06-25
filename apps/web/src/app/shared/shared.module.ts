@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { materialModules } from './material-modules.module';
 import { ReactiveToolbarDirective } from './reactive-toolbar.directive';
 import { AddressComponent } from './address/address.component';
 import { AddressListComponent } from './address-list/address-list.component';
@@ -15,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { LazyLoadImageDirective } from './lazy-load.directive';
 import { AntiqueAuctionDetailsViewComponent } from './antique-auction-details-view/antique-auction-details-view.component';
 import { AddToCardButtonComponent } from './add-to-card-button/add-to-card-button.component';
+import { MatModulesModule } from './mat-modules.module';
 
 
 
@@ -31,7 +31,7 @@ const imports = [
   SwiperModule,
   FormsModule, 
   ReactiveFormsModule,
-  materialModules
+  MatModulesModule
 ]
 const providers = [
   ReactiveToolbarDirective,

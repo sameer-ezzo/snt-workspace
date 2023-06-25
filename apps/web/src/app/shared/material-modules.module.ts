@@ -7,6 +7,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { NgModule } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
 
 export const materialModules = [
     MatToolbarModule,
@@ -17,5 +21,9 @@ export const materialModules = [
     MatDialogModule,
     MatMenuModule,
     MatBadgeModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
 ]
+

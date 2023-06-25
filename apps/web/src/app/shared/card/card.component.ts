@@ -7,5 +7,5 @@ import { AntiqueModel, AuctionModel } from 'libs/models/src';
   encapsulation: ViewEncapsulation.None
 })
 export class CardComponent{
-  @Input() item: {url:string} & (AntiqueModel | AuctionModel) | undefined;
+  @Input() item: any;
 }

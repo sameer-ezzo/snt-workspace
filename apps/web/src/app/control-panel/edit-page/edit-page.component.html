@@ -1,1 +1,48 @@
-<p>edit-page works!</p>
+<mat-card>
+    <h2>Edit Item</h2>
+    <ng-container *ngIf="_item$ | async">
+        <ng-container *ngIf="(itemType$ | async) === 'antiques'">
+            <mat-card-content>
+                <mat-form-field>
+                    <input matInput placeholder="Name" [(ngModel)]="item.name" name="name" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Slug" [(ngModel)]="item.slug" name="slug" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <textarea matInput rows="3" placeholder="Short Description" [(ngModel)]="item.shortDescription" name="shortDescription" required></textarea>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <textarea matInput rows="6" placeholder="Description" [(ngModel)]="item.description" name="description" required></textarea>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Category" [(ngModel)]="item.category" name="category" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Tags" [(ngModel)]="item.tags" name="tags">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="number" placeholder="Price" [(ngModel)]="item.price" name="price" required>
+                  </mat-form-field>
+                  <!-- <mat-form-field>
+                    <mat-select placeholder="Currency" [(ngModel)]="item.currency" name="currency" required>
+                      <mat-option value="USD">USD</mat-option>
+                      <mat-option value="EUR">EUR</mat-option>
+                      <mat-option value="GBP">GBP</mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+                  <mat-form-field>
+                    <input matInput type="date" placeholder="Date of Manufacture" [(ngModel)]="item.dateOfManufacture" name="dateOfManufacture" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Status" [(ngModel)]="item.status" name="status" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="url" placeholder="Images" [(ngModel)]="item.images" name="images">
+                  </mat-form-field>
+                </mat-card-content>
+                <button mat-raised-button color="primary" (click)="save()">Save</button>
+
+        </ng-container>
+    </ng-container>
+</mat-card>
