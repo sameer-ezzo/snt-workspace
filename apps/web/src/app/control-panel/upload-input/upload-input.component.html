@@ -1,0 +1,27 @@
+<form [formGroup]="uploadForm" (ngSubmit)="submitForm()">
+  <fieldset>
+    <legend>Select File</legend>
+    <ul style="max-height: 250px; overflow-y: auto;">
+      <li *ngFor="let task of tasks"
+        style="display: flex; flex-flow: row nowrap; align-items: center; min-height: 30px; padding: 0.25rem 0">
+        <h5 style="margin: 0;">{{task[0].name}}</h5>
+        <span class="spacer"></span>
+        <mat-spinner *ngIf="task[1].loading" [mode]="task[1].loading ? 'determinate' : 'indeterminate'" [diameter]="30"
+          [value]="task[1].percentage"></mat-spinner>
+        <button *ngIf="!task[1].loading" mat-icon-button color="warn" (click)="delete(task[0])">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </li>
+    </ul>
+    <input type="hidden" formControlName="value">
+    <button mat-raised-button color="accent" (click)="openFileSelector()">Select Files</button>
+  </fieldset>
+  <mat-error *ngIf="fileControl.invalid && (fileControl.dirty || fileControl.touched) && fileControl.errors">
+    <div *ngIf="fileControl.errors['required']">File is required.</div>
+    <div *ngIf="fileControl.errors['fileType']">Invalid file type. Allowed types: {{ allowedFileTypes.join(', ') }}
+    </div>
+    <div *ngIf="fileControl.errors['maxSize']">File size exceeds the maximum allowed size of {{ maxFileSize / 1000 }}
+      KB.</div>
+  </mat-error>
+</form>

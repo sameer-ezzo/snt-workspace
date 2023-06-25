@@ -21,7 +21,14 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule)
 
-  app.enableCors({ origin: '*' })
+  // app.enableCors({
+  //   origin: '*',
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 204,
+  //   credentials: true,
+  // })
+  app.use(cors())
   app.use(helmet())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())

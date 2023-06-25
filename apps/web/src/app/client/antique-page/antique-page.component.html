@@ -1,5 +1,7 @@
+<img style="width: 100px;height: 100px;" src="http://localhost:3456/storage/1687691813184_kudra-cert-bg.png" alt="">
+
 <div class="container" *ngIf="antique$ | async as _antique">
-  <snt-aa-details [model]="_antique" view="antique"></snt-aa-details>
+    <snt-aa-details [model]="_antique" view="antique"></snt-aa-details>
 </div>
 
 <ng-container *ngIf="similarITems | async as sis">
