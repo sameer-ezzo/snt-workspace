@@ -1,12 +1,9 @@
-.mat-card{
+.form {
     width: 100%;
     max-width: 800px;
     margin-inline: auto;
-    margin-block-end: 2rem;
-    .mat-card-content{
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }

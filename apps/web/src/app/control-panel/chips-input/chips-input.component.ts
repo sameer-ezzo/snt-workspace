@@ -1,7 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, inject} from '@angular/core';
-import { FormControl} from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs'
-import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable, debounceTime, map, startWith } from 'rxjs'
 
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -11,88 +10,102 @@ import { MatChipInputEvent } from '@angular/material/chips';
   templateUrl: './chips-input.component.html',
   styleUrls: ['./chips-input.component.scss']
 })
-export class ChipsInputComponent{
-  
-  @Input() labelText: string = ''
-  @Input() type: 'single' | 'multiple' = 'multiple';
-  @Input() items: string[] = ['Category 1', 'Category 2', 'Category 3', 'Category 4']; 
-
+export class ChipsInputComponent {
   separatorKeysCodes: number[] = [13, 188];
   selectedItems!: string[]
-
-  itemCtrl = new FormControl();
+  itemCtrl = new FormControl('');
   filteredItems$!: Observable<string[]>;
 
-  @ViewChild('Input') Input!: ElementRef<HTMLInputElement>;
 
-  announcer = inject(LiveAnnouncer);
+  @ViewChild('itemInput') input!: ElementRef<HTMLInputElement>;
+  @Output() valueChange = new EventEmitter<string | string[]>()
+  _value: string[] = [];
+  @Input()
+  public get value(): undefined | string | string[] {
+    if (!this.multiple) return this._value?.[0]
+    return this._value
+  }
+  public set value(value: undefined | string | string[]) {
+    if (!value) this._value = []
+    else this._value = Array.isArray(value) ? value : [value];
+  }
 
-  ngOnInit() {
+  @Input() label: string = ''
+  @Input() multiple = false;
+  @Input() items: string[] = [];
+
+
+
+  constructor() {
     this.filteredItems$ = this.itemCtrl.valueChanges.pipe(
-      startWith(null),
-      map((item: string | null) => item ? this._filter(item) : this.items.slice())
+      debounceTime(250),
+      startWith(''),
+      map((item: string | null) => this._filter(item)),
     );
   }
 
-  addItem(event: MatAutocompleteSelectedEvent): void {
-    
-    const value = (event.option.value || '').trim();
-    console.log(value);
+  add(event: MatChipInputEvent): void {
+    const item = (event.value || '').trim();
 
-    if (value && this.items.includes(value) && !this.selectedItems.includes(value)) {
-      if(this.type === 'single') {
-        this.selectedItems = [value];
-        return
-      }
-      this.selectedItems.push(value);
+    if (item) {
+      this._value = this.multiple ? [...this._value, item] : [item]
+      this.valueChange.emit(this.value)
     }
 
-    this.itemCtrl.setValue(null);
-  }
-  setValues(){
-    this.Input
-  }
-  removeItem(item: string): void {
-    const index = this.selectedItems.indexOf(item);
+    event.chipInput!.clear();
 
-    if (index >= 0) {
-      this.selectedItems.splice(index, 1);
-      this.announcer.announce(`Removed ${item}`);
-    }
+    this.input.nativeElement.value = '';
+    this.itemCtrl.setValue('');
   }
+
+  remove(item: string): void {
+    const index = this._value.indexOf(item);
+    if (index < 0) return
+
+    this._value.splice(index, 1);
+    this.itemCtrl.setValue(this.input.nativeElement.value);
+    this.valueChange.emit(this.value)
+
+  }
+
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.items.push(event.option.viewValue);
-    this.Input.nativeElement.value = '';
-    this.itemCtrl.setValue(null);
+
+    this._value = this.multiple ? [...this._value, event.option.viewValue] : [event.option.viewValue]
+
+
+    this.input.nativeElement.value = '';
+    this.itemCtrl.setValue('');
+    this.valueChange.emit(this.value)
   }
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.items.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+
+  private _filter(value: string | null): string[] {
+    const search = (value ?? '').toLowerCase();
+    return this.items.filter(item => !this.value?.includes(item) && item.toLowerCase().includes(search));
   }
 }
-  
-
- 
-
-   
-
-  
-
-  
-
-
-   
 
 
 
-   
-
-  
 
 
-  
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

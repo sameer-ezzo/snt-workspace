@@ -1,6 +1,3 @@
-<mat-card>
-  <h2>Edit Item</h2>
-  <ng-container *ngIf="_item$ | async">
-    <antique-form [item]="item"></antique-form>
-  </ng-container>
-</mat-card>
+<ng-container *ngIf="_item$ | async">
+  <antique-form [item]="item"></antique-form>
+</ng-container>
