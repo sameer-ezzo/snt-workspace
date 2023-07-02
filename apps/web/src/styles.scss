@@ -1,6 +1,6 @@
 @use "@angular/material" as mat;
 @import '../src/snt-theme.scss';
-
+@import './scroll.scss';
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -92,4 +92,15 @@ mbe-3{
 }
 mbe-4{
     margin-block-end: 4rem
+}
+
+.flex{
+    display: flex;
+    gap:1rem
+}
+.justify-end{
+    justify-content: end;
+}
+.align-center{
+    align-items: center;
 }

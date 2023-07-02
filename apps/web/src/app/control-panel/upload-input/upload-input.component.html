@@ -1,5 +1,5 @@
 <form [formGroup]="uploadForm" (ngSubmit)="submitForm()">
-  <fieldset>
+  <div class="upload-container">
     <legend>Select File</legend>
     <ul style="max-height: 250px; overflow-y: auto;">
       <li *ngFor="let task of tasks"
@@ -16,7 +16,7 @@
     </ul>
     <input type="hidden" formControlName="value">
     <button mat-raised-button color="accent" (click)="openFileSelector()">Select Files</button>
-  </fieldset>
+  </div>
   <mat-error *ngIf="fileControl.invalid && (fileControl.dirty || fileControl.touched) && fileControl.errors">
     <div *ngIf="fileControl.errors['required']">File is required.</div>
     <div *ngIf="fileControl.errors['fileType']">Invalid file type. Allowed types: {{ allowedFileTypes.join(', ') }}

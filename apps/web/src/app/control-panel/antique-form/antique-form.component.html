@@ -1,0 +1,57 @@
+<mat-card>
+  <h2>Edit Item</h2>
+  <ng-container *ngIf="item">
+      <form [formGroup]="antiqueForm">
+        <mat-card-content>
+          <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+            <input matInput formControlName="name" [(ngModel)]="item.name" name="name" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Slug</mat-label>
+            <input matInput formControlName="slug" [(ngModel)]="item.slug" name="slug" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Short Description</mat-label>
+  
+            <textarea matInput rows="3" formControlName="shortDescription" [(ngModel)]="item.shortDescription"
+              name="shortDescription" required></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Description</mat-label>
+            <textarea matInput rows="6" formControlName="description" [(ngModel)]="item.description" name="description"
+              required></textarea>
+          </mat-form-field>
+              <chips-input [labelText]="'Category'" [items]="item.category.split(',')" [type]="'single'"></chips-input>
+  
+              <chips-input [labelText]="'Tags'" [items]="item.tags"></chips-input>
+              <mat-form-field appearance="outline">
+                  <mat-label>Status</mat-label>
+                  <input matInput  formControlName="status" [(ngModel)]="item.status" name="status" required>
+                </mat-form-field>
+         
+              <mat-form-field appearance="outline">
+                  <mat-label>Price</mat-label>
+                  <input matInput type="number" formControlName="price" [(ngModel)]="item.price" name="price" required>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                  <mat-label>Currency</mat-label>
+                    <input matInput type="text" formControlName="currency" [(ngModel)]="item.currency" name="currency" required>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                  <mat-label>Date of Manufacture</mat-label>
+                  <input matInput type="date" formControlName="dateOfManufacture" [(ngModel)]="item.dateOfManufacture"
+                    name="dateOfManufacture" required>
+                </mat-form-field>
+          
+          <!-- <upload-input [value]="item.images" (valueChange)="item.images = $event"
+            [allowedFileTypes]="['image/jpeg', ' image/jpg', 'image/png']"></upload-input> -->
+          </mat-card-content>
+          <div class="flex justify-end">
+              <button style="justify-self: flex-start;" mat-raised-button color="primary" (click)="save()">Save</button>
+          </div>
+      </form>
+    </ng-container>
+</mat-card>
