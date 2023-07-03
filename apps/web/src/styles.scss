@@ -68,6 +68,13 @@ body {
 .mat-icon{
     color: var(--theme-primary-default)
 }
+fieldset{
+    padding: 1rem;
+    border-color: var(--theme-divider);
+    legend{
+        padding: .5rem;
+    }
+}
 
 mbs-1{
     margin-block-start: 1rem

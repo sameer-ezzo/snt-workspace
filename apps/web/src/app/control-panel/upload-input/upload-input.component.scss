@@ -1,12 +1,7 @@
-.upload-container{
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid var(--theme-divider);
 
-    ul li{
-        display: -webkit-box;
-    -webkit-line-clamp: 1; /* Adjust the number of lines as per your needs */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    }
+ul li{
+    display: -webkit-box;
+-webkit-line-clamp: 1; /* Adjust the number of lines as per your needs */
+-webkit-box-orient: vertical;
+overflow: hidden;
 }
