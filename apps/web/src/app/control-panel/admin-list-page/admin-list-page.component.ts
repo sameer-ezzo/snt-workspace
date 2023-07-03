@@ -76,6 +76,10 @@ export class AdminListPageComponent {
 
     this.router.navigate([`/admin/${this.collection}/${action}`, item.slug])
   }
+
+  addItem(){
+    this.router.navigate([`/admin/${this.collection}/create`])
+  }
 }
 
 

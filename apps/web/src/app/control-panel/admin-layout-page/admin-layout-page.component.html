@@ -2,8 +2,8 @@
     <button mat-icon-button (click)="drawer.toggle()" aria-label="toggle app menu">
         <mat-icon>{{ drawer.opened === false ? 'menu' : 'disabled_by_default'}}</mat-icon>
     </button>
-    <a routerLink="/home" routerLinkActive="active" aria-label="Home">
-        SNT antiques and auctions
+    <a class="nav-link" routerLink="/home" routerLinkActive="active" aria-label="Home">
+        SNT Antiques And Auctions
     </a>
     <span class="spacer"></span>
 
@@ -16,7 +16,7 @@
         <a class="nav-link" color="primary" routerLink="./orders/list" routerLinkActive="active" aria-label="Home">Orders</a>
         <a class="nav-link" color="primary" routerLink="./payments/list" routerLinkActive="active" aria-label="Home">Payments</a>
     </mat-drawer>
-    <mat-drawer-content style="padding-top: 64px">
+    <mat-drawer-content style="padding: 64px 1rem">
         <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>

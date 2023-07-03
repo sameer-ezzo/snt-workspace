@@ -7,7 +7,7 @@
     </div>
 
     <div *ngIf="displayedColumns$|async as dcs" class="table-container">
-
+        <button mat-mini-fab color="primary" style="margin-block-end: 1rem" (click)="addItem()"><mat-icon style="color: white;">add</mat-icon></button>
         <table mat-table [dataSource]="data" class="table" matSort matSortActive="created" matSortDisableClear
             matSortDirection="desc">
             <!-- Number Column -->

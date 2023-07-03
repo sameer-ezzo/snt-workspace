@@ -1,0 +1,97 @@
+<ng-container *ngIf="item">
+  <form class="form" [formGroup]="auctionForm">
+    <h2>Edit Item</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" [(ngModel)]="item.name" name="name" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Slug</mat-label>
+      <input matInput formControlName="slug" [(ngModel)]="item.slug" name="slug" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Antique</mat-label>
+      <mat-select formControlName="antique" [(ngModel)]="item.antique">
+        <ng-container *ngIf="antiques$ | async as _antiques">
+          <mat-option *ngFor="let item of _antiques" [value]="item.name">{{item.name}}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Short Description</mat-label>
+
+      <textarea matInput rows="3" formControlName="shortDescription" [(ngModel)]="item.shortDescription"
+        name="shortDescription" required></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="6" formControlName="description" [(ngModel)]="item.description" name="description"
+        required></textarea>
+    </mat-form-field>
+    <chips-input [label]="'Category'" (valueChange)="changeCategory($event)" [items]="(categories$ | async) || []"
+      [value]="item.category">
+    </chips-input>
+    <chips-input [label]="'Tags'" (valueChange)="changeTags($event)" [items]="(tags$ | async) || []" [value]="item.tags"
+      [multiple]="true">
+    </chips-input>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" [(ngModel)]="item.status">
+        <ng-container *ngIf="status$ | async as _status">
+          <mat-option *ngFor="let item of _status" [value]="item">{{item}}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Starting Price</mat-label>
+      <input matInput type="number" formControlName="startingPrice" [(ngModel)]="item.startingPrice" name="startingPrice" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Open Date</mat-label>
+      <input matInput type="date" formControlName="openDate" [(ngModel)]="item.openDate"
+        name="openDate" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>clos Date</mat-label>
+      <input matInput type="date" formControlName="closeDate" [(ngModel)]="item.closeDate"
+        name="closeDate" required>
+    </mat-form-field>
+    
+    <fieldset formGroupName="contact">
+      <legend>Contact</legend>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" name="name" [(ngModel)]="item.contactInfo.name" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" name="phone" [(ngModel)]="item.contactInfo.phone" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" name="email" [(ngModel)]="item.contactInfo.email" required>
+      </mat-form-field>
+    </fieldset>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Address</mat-label>
+
+      <textarea matInput rows="3" formControlName="address" [(ngModel)]="item.address"
+        name="address" required></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Map</mat-label>
+      <input matInput formControlName="map" name="map" [(ngModel)]="item.map" required>
+    </mat-form-field>
+    <div class="flex justify-end">
+      <button style="justify-self: flex-start;" mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+  </form>
+</ng-container>

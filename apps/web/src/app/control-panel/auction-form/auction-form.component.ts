@@ -3,15 +3,16 @@ import { AntiqueModel, AuctionModel } from '@snt-workspace/models';
 import { User } from '../../membership/auth.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest, filter, map, of, switchMap, tap } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest, filter, map, of, switchMap, tap } from 'rxjs';
 import { BaseDataService } from '../../client/services/base-data.service';
+import { DataService } from '../../shared/data.service';
 
 @Component({
-  selector: 'antique-form',
-  templateUrl: './antique-form.component.html',
-  styleUrls: ['./antique-form.component.scss']
+  selector: 'auction-form',
+  templateUrl: './auction-form.component.html',
+  styleUrls: ['./auction-form.component.scss']
 })
-export class AntiqueFormComponent implements OnInit {
+export class AuctionFormComponent implements OnInit {
 
 
   private _terms$ = of<{ _id: string, parent?: string }[]>([
@@ -26,31 +27,40 @@ export class AntiqueFormComponent implements OnInit {
   tags$ = this._terms$.pipe(map(t => t.filter(t => t.parent === 'tag').map(t => t._id)))
   status$ = this._terms$.pipe(map(t => t.filter(t => t.parent === 'tag').map(t => t._id)))
 
+
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private ds: BaseDataService,
+    private dataService: DataService
   ) { }
 
-  @Input() item: AntiqueModel = new AntiqueModel()
+  @Input() item: AuctionModel = new AuctionModel()
 
-  antiqueForm = this.formBuilder.group({
+  antiques$: ReplaySubject<AntiqueModel[]> = new ReplaySubject(1);
+  auctionForm = this.formBuilder.group({
     name: [''],
     slug: [''],
+    antique:[''],
     shortDescription: [''],
     description: [''],
-    price: [0],
-    currency: [''],
-    dateOfManufacture: [''],
     status: [''],
-    images: ['']
+    category: [''],
+    tags: [[]],
+    
+    startingPrice: [''],
+    openDate: [''],
+    closeDate: [''],
+
+    contact: this.formBuilder.group({
+      name: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+    }),
+
+    address: [''],
+    map: [''],
   });
 
-  changeImages(images: any): void {
-    this.item.images = images
-  }
-
-
-  
   changeCategory(cat: any) {
     this.item.category = cat
   }
@@ -61,21 +71,17 @@ export class AntiqueFormComponent implements OnInit {
     this.item.tags = tags
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const antiques = (await this.dataService.get<any>('antiques',{})).data
+   
+    this.antiques$.next(antiques)
   }
 
   save() {
-    if (this.antiqueForm.valid) {
+    if (this.auctionForm.valid) {
       console.log('Save item:');
     }
   }
-  setCategory(category: string[]) {
-    console.log(category);
-
-  }
-  setTags(category: string[]) {
-    console.log(category);
-
-  }
+ 
 
 }

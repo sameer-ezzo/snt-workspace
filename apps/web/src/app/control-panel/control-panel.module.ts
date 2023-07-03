@@ -15,12 +15,13 @@ import { OrdersPageComponent } from './orders-page/orders-page.component';
 import { UploadInputComponent } from './upload-input/upload-input.component';
 import { ChipsInputComponent } from './chips-input/chips-input.component';
 import { AntiqueFormComponent } from './antique-form/antique-form.component';
+import { AuctionFormComponent } from './auction-form/auction-form.component';
 
 @NgModule({
   declarations: [
     AdminLayoutPageComponent, AdminListPageComponent, DetailsPageComponent,
     EditPageComponent, UsersPageComponent, PaymentsPageComponent,
-    OrdersPageComponent, UploadInputComponent,ChipsInputComponent,AntiqueFormComponent
+    OrdersPageComponent, UploadInputComponent,ChipsInputComponent,AntiqueFormComponent,AuctionFormComponent
   ],
   imports: [
     MatTableModule,

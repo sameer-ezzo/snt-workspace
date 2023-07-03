@@ -14,6 +14,8 @@ const routes: Routes = [
       {path:'', redirectTo:'antiques/list', pathMatch:'full'},
       { path: ':collection/list', component: AdminListPageComponent },
       { path: ':collection/edit/:slug', component: EditPageComponent },
+      { path: ':collection/create', component: EditPageComponent },
+
       { path: ':collection/details/:slug', component: DetailsPageComponent },
 
       { path: 'users/list', component: UsersPageComponent },

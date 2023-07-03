@@ -26,8 +26,8 @@ export class AntiqueAuctionDetailsViewComponent {
 
   images: string[] = []
 
-  @Input() view: 'antique' | 'auction' = 'antique'
-  private _model!: AntiqueModel | AuctionModel;
+  @Input() view: 'antiques' | 'auctions' | null = 'antiques'
+  private _model!:any;
   @Input()
   public get model(): AntiqueModel | AuctionModel {
     return this._model;
@@ -41,8 +41,8 @@ export class AntiqueAuctionDetailsViewComponent {
     const { currency, price } = value as AntiqueModel
     this.currency = currency
     this.price = price
-    this.images = 'images' in value ? value.images : value.antique.images
-    this.dateOfManufacture = 'dateOfManufacture' in value ? value.dateOfManufacture : value.antique.dateOfManufacture
+    this.images = 'images' in value ? value.images : value.antique?.images
+    this.dateOfManufacture = 'dateOfManufacture' in value ? value.dateOfManufacture : value.antique?.dateOfManufacture
   }
 
   async openPaymentFormDialog() {

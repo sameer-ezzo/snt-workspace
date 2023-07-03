@@ -1,3 +1,4 @@
+import { AntiqueModel } from "./antique.model";
 
 export class BaseModel {
   _id = '';

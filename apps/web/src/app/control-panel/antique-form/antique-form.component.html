@@ -1,6 +1,6 @@
 <ng-container *ngIf="item">
-  <h2>Edit Item</h2>
   <form class="form" [formGroup]="antiqueForm">
+    <h2>Edit Item</h2>
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" [(ngModel)]="item.name" name="name" required>
@@ -25,9 +25,14 @@
     <chips-input [label]="'Tags'" (valueChange)="changeTags($event)" [items]="(tags$ | async) || []" [value]="item.tags"
       [multiple]="true"></chips-input>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Status</mat-label>
-      <input matInput formControlName="status" [(ngModel)]="item.status" name="status" required>
+      <mat-select formControlName="antique" [(ngModel)]="item.status">
+        <ng-container *ngIf="status$ | async as _status">
+          <mat-option *ngFor="let item of _status" [value]="item">{{item}}</mat-option>
+        </ng-container>
+
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -46,8 +51,8 @@
         name="dateOfManufacture" required>
     </mat-form-field>
 
-    <!-- <upload-input [value]="item.images" (valueChange)="item.images = $event"
-            [allowedFileTypes]="['image/jpeg', ' image/jpg', 'image/png']"></upload-input> -->
+    <upload-input [value]="item.images" (valueChange)="changeImages($event)"
+      [allowedFileTypes]="['image/jpeg', ' image/jpg', 'image/png']"></upload-input>
     <div class="flex justify-end">
       <button style="justify-self: flex-start;" mat-raised-button color="primary" (click)="save()">Save</button>
     </div>

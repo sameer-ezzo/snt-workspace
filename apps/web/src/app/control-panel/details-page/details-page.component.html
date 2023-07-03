@@ -1,1 +1,3 @@
-<p>details-page works!</p>
+<div class="container" *ngIf="item$ | async as _item">
+    <snt-aa-details [model]="_item" [view]="slug$ | async"></snt-aa-details>  
+</div>
