@@ -6,3 +6,5 @@ export class AntiqueModel extends BaseModel {
   dateOfManufacture: Date | string = new Date()
   images: string[] = []
 }
+
+export type AntiqueViewModel = AntiqueModel

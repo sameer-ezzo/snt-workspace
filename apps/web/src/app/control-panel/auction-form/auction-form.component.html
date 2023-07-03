@@ -10,14 +10,19 @@
       <input matInput formControlName="slug" [(ngModel)]="item.slug" name="slug" required>
     </mat-form-field>
 
+
     <mat-form-field appearance="fill">
       <mat-label>Antique</mat-label>
-      <mat-select formControlName="antique" [(ngModel)]="item.antique">
-        <ng-container *ngIf="antiques$ | async as _antiques">
-          <mat-option *ngFor="let item of _antiques" [value]="item.name">{{item.name}}</mat-option>
-        </ng-container>
-      </mat-select>
+      <input type="text" placeholder="Pick an antique" aria-label="Antique" matInput
+        [value]="auctionForm.get('antique').value.name" formControlName="antique"
+        [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredAntiques$ | async" [value]="option">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
+
 
     <mat-form-field appearance="fill">
       <mat-label>Short Description</mat-label>
@@ -46,24 +51,23 @@
       </mat-select>
     </mat-form-field>
 
-    
+
     <mat-form-field appearance="fill">
       <mat-label>Starting Price</mat-label>
-      <input matInput type="number" formControlName="startingPrice" [(ngModel)]="item.startingPrice" name="startingPrice" required>
+      <input matInput type="number" formControlName="startingPrice" [(ngModel)]="item.startingPrice"
+        name="startingPrice" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Open Date</mat-label>
-      <input matInput type="date" formControlName="openDate" [(ngModel)]="item.openDate"
-        name="openDate" required>
+      <input matInput type="date" formControlName="openDate" [(ngModel)]="item.openDate" name="openDate" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>clos Date</mat-label>
-      <input matInput type="date" formControlName="closeDate" [(ngModel)]="item.closeDate"
-        name="closeDate" required>
+      <input matInput type="date" formControlName="closeDate" [(ngModel)]="item.closeDate" name="closeDate" required>
     </mat-form-field>
-    
+
     <fieldset formGroupName="contact">
       <legend>Contact</legend>
       <mat-form-field appearance="fill">
@@ -83,8 +87,8 @@
     <mat-form-field appearance="fill">
       <mat-label>Address</mat-label>
 
-      <textarea matInput rows="3" formControlName="address" [(ngModel)]="item.address"
-        name="address" required></textarea>
+      <textarea matInput rows="3" formControlName="address" [(ngModel)]="item.address" name="address"
+        required></textarea>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Map</mat-label>

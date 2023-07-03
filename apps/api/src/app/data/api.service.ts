@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 
 import { InjectConnection } from '@nestjs/mongoose';
 import { ListResult } from "libs/models/src";
@@ -66,6 +66,19 @@ export class ApiService {
                 onlyFirst: _lookup.first === true
             }
         }
+
+        const insensetiveContaines = '$icontains'
+        for (const key in q) {
+            if (key === insensetiveContaines) {
+                const [field, value] = q[key].split(':')
+                delete q[key]
+                q[field] = { '$regex': `.*${value}.*$`, '$options': 'i' }
+            }
+        }
+
+
+        
+
         const pipline = createAggregationPipeline(q, projection, limit, sort_by, order, skip, lookup)
 
         return {

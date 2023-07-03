@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AntiqueModel, AuctionModel } from 'libs/models/src';
+import { AntiqueViewModel, AntiqueModel, AuctionViewModel, AuctionModel } from 'libs/models/src';
 import { CartService } from '../cart.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -27,18 +27,18 @@ export class AntiqueAuctionDetailsViewComponent {
   images: string[] = []
 
   @Input() view: 'antiques' | 'auctions' | null = 'antiques'
-  private _model!:any;
+  private _model!: any;
   @Input()
-  public get model(): AntiqueModel | AuctionModel {
+  public get model(): AntiqueViewModel | AuctionViewModel {
     return this._model;
   }
-  public set model(value: AntiqueModel | AuctionModel) {
+  public set model(value: AntiqueViewModel | AuctionViewModel) {
     this._model = value;
-    if('map' in value && value.map){
+    if ('map' in value && value.map) {
       const url = value.map
       this.map = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
-    const { currency, price } = value as AntiqueModel
+    const { currency, price } = value as AntiqueViewModel
     this.currency = currency
     this.price = price
     this.images = 'images' in value ? value.images : value.antique?.images

@@ -15,7 +15,7 @@ export class ApiController {
     const { per_page, page, select } = req.body
     const path = params?.[0]
 
-    const query = {...req.body}
+    const query = { ...req.body }
     delete query.per_page
     delete query.page
     delete query.select
