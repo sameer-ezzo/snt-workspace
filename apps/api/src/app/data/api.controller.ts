@@ -2,11 +2,11 @@ import { Controller, Header, Post, Req } from '@nestjs/common';
 
 import { Request } from 'express';
 
-import { ApiService } from './api.service';
+import { DataService } from './data.service';
 
 @Controller('api')
 export class ApiController {
-  constructor(private readonly api: ApiService) { }
+  constructor(private readonly api: DataService) { }
 
   @Post('**')
   @Header('Cache-Control', 'none')

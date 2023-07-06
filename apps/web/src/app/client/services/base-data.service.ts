@@ -37,4 +37,7 @@ export class BaseDataService {
         if (res.total === 0) return undefined
         return res.data[0]
     }
+    createItem(collection:any, item:any){
+        return this.http.post(`${environment.base}/api/${collection}`,item)
+    }
 }

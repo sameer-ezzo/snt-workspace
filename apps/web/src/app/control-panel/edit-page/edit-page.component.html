@@ -1,17 +1,6 @@
-<ng-container *ngIf="(_item$ | async) && (slug$ | async) ;else create">
-  <ng-container *ngIf="(itemType$ | async) === 'antiques'">
-    <antique-form [item]="item"></antique-form>
-  </ng-container>
-  <ng-container *ngIf="(itemType$ | async) === 'auctions'">
-    <auction-form [item]="item"></auction-form>
+<ng-container *ngIf="(_item$ | async) as item">
+  <ng-container *ngIf="(itemType$ | async) as itemType">
+    <antique-form *ngIf="itemType === 'antiques'" [item]="item"></antique-form>
+    <auction-form *ngIf="itemType === 'auctions'" [item]="item"></auction-form>
   </ng-container>
 </ng-container>
-
-<ng-template #create>
-  <ng-container *ngIf="(itemType$ | async) === 'antiques'">
-    <antique-form></antique-form>
-  </ng-container>
-  <ng-container *ngIf="(itemType$ | async) === 'auctions'">
-    <auction-form></auction-form>
-  </ng-container>
-</ng-template>

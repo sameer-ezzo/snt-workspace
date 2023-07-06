@@ -15,9 +15,10 @@ const routes: Routes = [
       { path: ':collection/list', component: AdminListPageComponent },
       { path: ':collection/edit/:slug', component: EditPageComponent },
       { path: ':collection/create', component: EditPageComponent },
-
       { path: ':collection/details/:slug', component: DetailsPageComponent },
 
+      {path: ':collection/delete/:slug', redirectTo: ':collection/list', pathMatch: 'full' },
+      
       { path: 'users/list', component: UsersPageComponent },
       { path: 'orders/list', component: OrdersPageComponent },
       { path: 'payments/list', component: PaymentsPageComponent }

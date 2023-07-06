@@ -10,6 +10,7 @@ import { environment } from 'apps/web/src/environments/environment';
   styleUrls: ['./upload-input.component.scss']
 })
 export class UploadInputComponent {
+  @Input() legend: string = 'Select Images';
   @Input() allowedFileTypes: string[] = []
   private _maxFileSize: number = 1048576;
   @Input()

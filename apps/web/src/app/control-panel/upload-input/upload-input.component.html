@@ -1,6 +1,6 @@
 <form [formGroup]="uploadForm" (ngSubmit)="submitForm()">
   <fieldset>
-    <legend>Select Files</legend>
+    <legend>{{legend}}</legend>
     <ul style="max-height: 250px; overflow-y: auto;">
       <li *ngFor="let task of tasks"
         style="display: flex; flex-flow: row nowrap; align-items: center; min-height: 30px; padding: 0.25rem 0">

@@ -1,99 +1,156 @@
+item
 <ng-container *ngIf="item">
   <form class="form" [formGroup]="auctionForm">
     <h2>Edit Item</h2>
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput formControlName="name" [(ngModel)]="item.name" name="name" required>
+      <input matInput formControlName="name" name="name" required>
     </mat-form-field>
+    <mat-error *ngIf="auctionForm.get('name')?.errors && auctionForm.get('name')?.touched">
+      <span>{{auctionForm.get('name')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      <span>{{auctionForm.get('name')?.errors?.['minlength'] ? 'Minimum Length is 3' : null}}</span>
+    </mat-error>
     <mat-form-field appearance="fill">
       <mat-label>Slug</mat-label>
-      <input matInput formControlName="slug" [(ngModel)]="item.slug" name="slug" required>
+      <input matInput formControlName="slug" name="slug" required>
+      <mat-error *ngIf="auctionForm.get('slug')?.errors && auctionForm.get('slug')?.touched">
+        <span>{{auctionForm.get('slug')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
 
 
     <mat-form-field appearance="fill">
       <mat-label>Antique</mat-label>
-      <input type="text" placeholder="Pick an antique" aria-label="Antique" matInput
-        [value]="auctionForm.get('antique').value.name" formControlName="antique"
+      <input type="text" placeholder="Pick an antique" aria-label="Antique" matInput [(ngModel)]="item.antique"
+         formControlName="antique" name="antique"
         [matAutocomplete]="auto">
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredAntiques$ | async" [value]="option">
+        <mat-option *ngFor="let option of filteredAntiques$ | async" [value]="option.name" (onSelectionChange)="setAntiqueValue(option)">
           {{option.name}}
         </mat-option>
       </mat-autocomplete>
+      <mat-error *ngIf="auctionForm.get('antique')?.errors && auctionForm.get('antique')?.touched">
+        <span>{{auctionForm.get('antique')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
 
 
     <mat-form-field appearance="fill">
       <mat-label>Short Description</mat-label>
 
-      <textarea matInput rows="3" formControlName="shortDescription" [(ngModel)]="item.shortDescription"
-        name="shortDescription" required></textarea>
+      <textarea matInput rows="3" formControlName="shortDescription"
+        name="shortDescription" required>
+      </textarea>
+      <mat-error *ngIf="auctionForm.get('shortDescription')?.errors && auctionForm.get('shortDescription')?.touched">
+        <span>{{auctionForm.get('shortDescription')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
-      <textarea matInput rows="6" formControlName="description" [(ngModel)]="item.description" name="description"
-        required></textarea>
+      <textarea matInput rows="6" formControlName="description" name="description"
+        required>
+      </textarea>
+      <mat-error *ngIf="auctionForm.get('description')?.errors && auctionForm.get('description')?.touched">
+        <span>{{auctionForm.get('description')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
     <chips-input [label]="'Category'" (valueChange)="changeCategory($event)" [items]="(categories$ | async) || []"
       [value]="item.category">
     </chips-input>
+    <mat-error *ngIf="item.category.length === 0">
+      <span>This Field Is Required</span>
+    </mat-error>
     <chips-input [label]="'Tags'" (valueChange)="changeTags($event)" [items]="(tags$ | async) || []" [value]="item.tags"
       [multiple]="true">
     </chips-input>
-
+    <mat-error *ngIf="item.tags.length === 0">
+      <span>This Field Is Required</span>
+    </mat-error>
     <mat-form-field appearance="fill">
       <mat-label>Status</mat-label>
-      <mat-select formControlName="status" [(ngModel)]="item.status">
+      <mat-select formControlName="status">
         <ng-container *ngIf="status$ | async as _status">
           <mat-option *ngFor="let item of _status" [value]="item">{{item}}</mat-option>
         </ng-container>
       </mat-select>
+      <mat-error *ngIf="auctionForm.get('status')?.errors && auctionForm.get('status')?.touched">
+        <span>{{auctionForm.get('status')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
 
 
     <mat-form-field appearance="fill">
       <mat-label>Starting Price</mat-label>
-      <input matInput type="number" formControlName="startingPrice" [(ngModel)]="item.startingPrice"
+      <input matInput type="number" formControlName="startingPrice"
         name="startingPrice" required>
+        <mat-error *ngIf="auctionForm.get('startingPrice')?.errors && auctionForm.get('startingPrice')?.touched">
+          <span>{{auctionForm.get('startingPrice')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Open Date</mat-label>
-      <input matInput type="date" formControlName="openDate" [(ngModel)]="item.openDate" name="openDate" required>
+      <input matInput type="date" formControlName="openDate" required>
+      <mat-error *ngIf="auctionForm.get('openDate')?.errors && auctionForm.get('openDate')?.touched">
+        <span>{{auctionForm.get('openDate')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>clos Date</mat-label>
-      <input matInput type="date" formControlName="closeDate" [(ngModel)]="item.closeDate" name="closeDate" required>
+      <input matInput type="date" formControlName="closeDate" name="closeDate" required>
+      <mat-error *ngIf="auctionForm.get('closeDate')?.errors && auctionForm.get('closeDate')?.touched">
+        <span>{{auctionForm.get('closeDate')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
 
     <fieldset formGroupName="contact">
       <legend>Contact</legend>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
-        <input matInput formControlName="name" name="name" [(ngModel)]="item.contactInfo.name" required>
+        <input matInput formControlName="name" name="name" required>
+        <mat-error *ngIf="auctionForm.controls.contact.get('name')?.errors && auctionForm.controls.contact.get('name')?.touched">
+          <span>{{auctionForm.controls.contact.get('name')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+          <span>{{auctionForm.controls.contact.get('name')?.errors?.['minlength'] ? 'Minimum Length is 3' : null}}</span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Phone</mat-label>
-        <input matInput formControlName="phone" name="phone" [(ngModel)]="item.contactInfo.phone" required>
+        <input matInput formControlName="phone" name="phone" required>
+        <mat-error *ngIf="auctionForm.controls.contact.get('phone')?.errors && auctionForm.controls.contact.get('phone')?.touched">
+          <span>{{auctionForm.controls.contact.get('phone')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email" name="email" [(ngModel)]="item.contactInfo.email" required>
+        <input matInput formControlName="email" name="email" required>
+        <mat-error *ngIf="auctionForm.controls.contact.get('email')?.errors && auctionForm.controls.contact.get('email')?.touched">
+          <span>{{auctionForm.controls.contact.get('email')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+          <span>{{auctionForm.controls.contact.get('email')?.errors?.['email'] ? 'Example: example@gmail.com' : null}}</span>
+        </mat-error>
       </mat-form-field>
     </fieldset>
 
     <mat-form-field appearance="fill">
       <mat-label>Address</mat-label>
 
-      <textarea matInput rows="3" formControlName="address" [(ngModel)]="item.address" name="address"
-        required></textarea>
+      <textarea matInput rows="3" formControlName="address" name="address"
+        required>
+      </textarea>
+      <mat-error *ngIf="auctionForm.get('address')?.errors && auctionForm.get('address')?.touched">
+        <span>{{auctionForm.get('address')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Map</mat-label>
-      <input matInput formControlName="map" name="map" [(ngModel)]="item.map" required>
+      <input matInput formControlName="map" name="map" required>
     </mat-form-field>
+
+    <upload-input [value]="item.image" [maxFileCount]="1"  (valueChange)="changeFeatureImage($event)"
+      [allowedFileTypes]="['image/jpeg', ' image/jpg', 'image/png']" [legend]="'Feature Image'"></upload-input>
+      <mat-error *ngIf="item?.image?.length === 0">
+        <span>This Field Is Required</span>
+      </mat-error>
     <div class="flex justify-end">
       <button style="justify-self: flex-start;" mat-raised-button color="primary" (click)="save()">Save</button>
     </div>

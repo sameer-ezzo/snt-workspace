@@ -3,9 +3,11 @@ import { AntiqueModel, AuctionModel } from '@snt-workspace/models';
 import { User } from '../../membership/auth.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, ReplaySubject, combineLatest, debounceTime, filter, map, of, startWith, switchMap, tap } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest, debounceTime, filter, firstValueFrom, map, of, startWith, switchMap, tap } from 'rxjs';
 import { BaseDataService } from '../../client/services/base-data.service';
 import { DataService } from '../../shared/data.service';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { environment } from 'apps/web/src/environments/environment';
 
 
 export type AntiqueSelectViewModel = { _id: string, name: string }
@@ -28,40 +30,55 @@ export class AuctionFormComponent implements OnInit {
   categories$ = this._terms$.pipe(map(t => t.filter(t => t.parent === 'category').map(t => t._id)))
   tags$ = this._terms$.pipe(map(t => t.filter(t => t.parent === 'tag').map(t => t._id)))
   status$ = this._terms$.pipe(map(t => t.filter(t => t.parent === 'tag').map(t => t._id)))
+  loading = false;
 
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private ds: BaseDataService,
-    private dataService: DataService
+    private http: HttpClient
   ) { }
+
+  private _item: AuctionModel = new AuctionModel();
+ 
+  @Input()
   
-  @Input() item: AuctionModel = new AuctionModel()
+  public get item(): AuctionModel {
+    return this._item;
+  }
+  public set item(value: AuctionModel) {
+    this._item = value;
+    this.auctionForm.patchValue(value as any)
+  }
+   
   antiqueControl = new FormControl();
 
   auctionForm = this.formBuilder.group({
-    name: [''],
-    slug: [''],
-    antique: [{_id: '', name: ''}],
-    shortDescription: [''],
-    description: [''],
-    status: [''],
+    name: ['',[Validators.required, Validators.minLength(3)]],
+    slug: ['',[Validators.required]],
+    antique: [{_id: '', name: ''},[Validators.required]],
+    shortDescription: ['',[Validators.required]],
+    description: ['',[Validators.required]],
+    status: ['',[Validators.required]],
     category: [''],
     tags: [[]],
 
-    startingPrice: [''],
-    openDate: [''],
-    closeDate: [''],
+    startingPrice: [0,[Validators.required]],
+    openDate: ['',[Validators.required]],
+    closeDate: ['',[Validators.required]],
 
     contact: this.formBuilder.group({
-      name: ['', Validators.required],
-      phone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      name: ['',[Validators.required, Validators.minLength(3)]],
+      phone: ['',[Validators.required]],
+      email: ['',[Validators.required, Validators.email]],
     }),
-
-    address: [''],
-    map: [''],
+    image: [[], [Validators.required]],
+    address: ['',[Validators.required]],
+    map: ['']
   });
+  changeFeatureImage(image: any){
+    this.item.image = image;
+  }
 
   changeCategory(cat: any) {
     this.item.category = cat
@@ -73,12 +90,36 @@ export class AuctionFormComponent implements OnInit {
     this.item.tags = tags
   }
 
+  setAntiqueValue(value: any){
+    this.item.antique = value
+  }
 
+  async save() {
+    if (this.auctionForm.invalid) return;
+     const formData = { ...this.auctionForm.value } as any; 
 
-  save() {
-    if (this.auctionForm.valid) {
-      console.log('Save item:');
+    let result: any = null;
+
+    const create = (data:Partial<AuctionModel>)=> firstValueFrom(
+      this.http.post(`${environment.base}/admin/auctions/create`, data)
+    );
+    const edit = (data:Partial<AntiqueModel>)=> firstValueFrom(
+      this.http.post(`${environment.base}/admin/auctions/edit`, data)
+    );
+
+    try {
+      this.loading = true;
+      result = await (formData._id?.length === 0 ? create(formData) : edit(formData));
+
+      const _id = result?._id as string;
+      this.item = { ...formData, _id } as any;
+    } catch (error) {
+      // console.error(error);
+      
+    } finally {
+      this.loading = false;
     }
+    
   }
 
 
@@ -90,7 +131,7 @@ export class AuctionFormComponent implements OnInit {
     this.filteredAntiques$ = this.auctionForm.controls.antique.valueChanges.pipe(
       debounceTime(300),
       startWith(''),
-      switchMap(value => this._filter(value ?? '')),
+      switchMap((value: any) => this._filter(value ?? '')),
     );
   }
 

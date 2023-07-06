@@ -6,10 +6,10 @@ export class BaseModel {
   slug = '';
   shortDescription = '';
   description = '';
-  category = '';
-  tags: string[] = [];
+  category = 'Antiques';
+  tags: string[] = ['Century'];
   date: Date = new Date();
-  image = '';
+  image = [];
   
 }
 

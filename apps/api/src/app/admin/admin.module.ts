@@ -9,6 +9,10 @@ import { StorageController } from './upload.controller';
 import { diskStorage } from 'multer';
 import { join } from 'path';
 import { existsSync, mkdirSync } from 'fs';
+import { AntiqueService } from './antique.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AntiqueSchema, AuctionSchema } from '../data';
+import { AuctionService } from './auction.service';
 
 
 
@@ -25,6 +29,13 @@ createDirectoryIfNotExists(dest)
 
 @Module({
     imports: [
+        MongooseModule.forFeature(
+            [
+              { name: "Antique", collection: "antiques", schema: AntiqueSchema },
+              { name: "Auction", collection: "auctions", schema: AuctionSchema },
+            ],
+            "SNT_DB"
+          ),
         DataModule,
         AuthModule,
         UsersModule,
@@ -44,6 +55,8 @@ createDirectoryIfNotExists(dest)
     ],
     controllers: [AntiquesController, AuctionsController, StorageController],
     providers: [
+        AntiqueService,
+        AuctionService,
         { provide: 'UPLOAD_BASE', useValue: dest }
     ],
     exports: []

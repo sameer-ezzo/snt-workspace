@@ -2,7 +2,7 @@ import { Controller, Get, HttpException, HttpStatus, Param, Post, Req } from '@n
 import { InjectModel } from '@nestjs/mongoose';
 import { Request } from 'express'
 import { Model } from 'mongoose';
-import { Antique } from './schemas/antique.schema';
+import { Antique } from './data/schemas/antique.schema';
 import { CartItem, User } from './users/user.schema';
 
 @Controller('payment')
@@ -50,7 +50,7 @@ export class PaymentController {
         const cartItem = {
             currency: item.currency,
             date: new Date(),
-            image: item.image,
+            image: item.image?.[0],
             name: item.name,
             price: item.price,
             quantity: 1,

@@ -1,24 +1,37 @@
 <ng-container *ngIf="item">
   <form class="form" [formGroup]="antiqueForm">
     <h2>Edit Item</h2>
+    <input type="hidden" formControlName="_id">
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput formControlName="name" [(ngModel)]="item.name" name="name" required>
+      <input matInput formControlName="name" name="name" required>
+      <mat-error *ngIf="antiqueForm.get('name')?.errors && antiqueForm.get('name')?.touched">
+        <span>{{antiqueForm.get('name')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+        <span>{{antiqueForm.get('name')?.errors?.['minlength'] ? 'Minimum Length is 3' : null}}</span>
+      </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Slug</mat-label>
-      <input matInput formControlName="slug" [(ngModel)]="item.slug" name="slug" required>
+      <input matInput formControlName="slug" name="slug" required>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Short Description</mat-label>
 
-      <textarea matInput rows="3" formControlName="shortDescription" [(ngModel)]="item.shortDescription"
-        name="shortDescription" required></textarea>
+      <textarea matInput rows="3" formControlName="shortDescription"
+        name="shortDescription" required>
+      </textarea>
+      <mat-error *ngIf="antiqueForm.get('shortDescription')?.errors && antiqueForm.get('name')?.touched">
+        <span>{{antiqueForm.get('shortDescription')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
-      <textarea matInput rows="6" formControlName="description" [(ngModel)]="item.description" name="description"
-        required></textarea>
+      <textarea matInput rows="6" formControlName="description" name="description"
+        required>
+      </textarea>
+      <mat-error *ngIf="antiqueForm.get('description')?.errors && antiqueForm.get('name')?.touched">
+        <span>{{antiqueForm.get('description')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
     <chips-input [label]="'Category'" (valueChange)="changeCategory($event)" [items]="(categories$ | async) || []"
       [value]="item.category"></chips-input>
@@ -27,32 +40,47 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Status</mat-label>
-      <mat-select formControlName="antique" [(ngModel)]="item.status">
+      <mat-select formControlName="status">
         <ng-container *ngIf="status$ | async as _status">
           <mat-option *ngFor="let item of _status" [value]="item">{{item}}</mat-option>
         </ng-container>
 
       </mat-select>
+      <mat-error *ngIf="antiqueForm.get('status')?.errors && antiqueForm.get('name')?.touched">
+        <span>{{antiqueForm.get('description')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Price</mat-label>
-      <input matInput type="number" formControlName="price" [(ngModel)]="item.price" name="price" required>
+      <input matInput type="number" formControlName="price" name="price" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Currency</mat-label>
-      <input matInput type="text" formControlName="currency" [(ngModel)]="item.currency" name="currency" required>
+      <input matInput type="text" formControlName="currency" name="currency" required>
+      <mat-error *ngIf="antiqueForm.get('currency')?.errors && antiqueForm.get('name')?.touched">
+        <span>{{antiqueForm.get('currency')?.errors?.['required'] ? 'This Field Is Required' : null}}</span>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Date of Manufacture</mat-label>
-      <input matInput type="date" formControlName="dateOfManufacture" [(ngModel)]="item.dateOfManufacture"
+      <input matInput type="date" formControlName="dateOfManufacture"
         name="dateOfManufacture" required>
+        
     </mat-form-field>
 
+    <upload-input [value]="item.image" [maxFileCount]="1"  (valueChange)="changeFeatureImage($event)"
+      [allowedFileTypes]="['image/jpeg', ' image/jpg', 'image/png']" [legend]="'Feature Image'"></upload-input>
+      <mat-error *ngIf="item?.image?.length === 0">
+        <span>This Field Is Required</span>
+      </mat-error>
     <upload-input [value]="item.images" (valueChange)="changeImages($event)"
-      [allowedFileTypes]="['image/jpeg', ' image/jpg', 'image/png']"></upload-input>
+      [allowedFileTypes]="['image/jpeg', ' image/jpg', 'image/png']" [legend]="'Select Images'"></upload-input>
+      <mat-error *ngIf="item?.images?.length === 0">
+        <span>This Field Is Required</span>
+      </mat-error>
     <div class="flex justify-end">
       <button style="justify-self: flex-start;" mat-raised-button color="primary" (click)="save()">Save</button>
     </div>
