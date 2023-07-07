@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { Antique, AntiqueSchema } from "../data/schemas/antique.schema";
 import { DataService } from "../data/data.service";
 import { InjectModel } from "@nestjs/mongoose";
@@ -14,18 +14,35 @@ export class AntiqueService {
   ) {}
 
   async create(antique: any){
-      const newModel = new this.antiqueModel(antique);
-      newModel._id = new mongoose.Types.ObjectId().toHexString();
-      return await newModel.save()
+      
+      try {
+        const newModel = new this.antiqueModel(antique);
+        newModel._id = new mongoose.Types.ObjectId().toHexString();
+        await newModel.save()
+      } catch (error) {
+        if(error.name === 'ValidationError') throw new HttpException('Form validation failed',HttpStatus.BAD_REQUEST)
+        else throw new Error('Error has occurred during creating')
+      }
     }
   async edit(antique: any) {
-    await this.antiqueModel.findByIdAndUpdate(
-        { _id: antique._id },
-        antique
-      );
+    try {
+        await this.antiqueModel.findByIdAndUpdate(
+            { _id: antique._id },
+            antique
+          );
+      } catch (error) {
+        if(error.name === 'ValidationError') throw new HttpException('Form validation failed',HttpStatus.BAD_REQUEST)
+        else throw new Error('Error has occurred during Editing')
+      }
+    
    
   }
   async delete(slug: string){
-    return await this.antiqueModel.findOneAndDelete({slug: slug})
+    try {
+        await this.antiqueModel.findOneAndDelete({slug: slug})
+      } catch (error) {
+        if(error.error.statusCode === 404) throw new HttpException('Item not found',HttpStatus.NOT_FOUND)
+        else throw new Error('Something went wrong')
+      }
   }
 }

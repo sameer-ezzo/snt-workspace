@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { catchError, debounceTime, firstValueFrom, map, merge, of, ReplaySubject, startWith, Subject, switchMap, tap, throwError } from 'rxjs'
 import { DataService } from '../../shared/data.service'
 import { environment } from 'apps/web/src/environments/environment'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'snt-admin-list-page',
@@ -32,7 +33,7 @@ export class AdminListPageComponent {
   }
   constructor(
     private router: Router,
-    private dataService: DataService, private route: ActivatedRoute, private http: HttpClient) { }
+    private dataService: DataService, private route: ActivatedRoute, private http: HttpClient,private snackbar: MatSnackBar) { }
 
   private readonly updateViewData$ = new Subject<any>()
 
@@ -75,7 +76,11 @@ export class AdminListPageComponent {
   async exec(action: string, item: any) {
     console.log(`/admin/${this.collection}/${action}/${item.slug}`);
     try {
-      await firstValueFrom(this.http.delete(`${environment.base}/admin/${this.collection}/${action}/${item.slug}`))
+      if(action === 'delete') {
+        await firstValueFrom(this.http.delete(`${environment.base}/admin/${this.collection}/${action}/${item.slug}`))
+        this._updateViewData({})
+        this.snackbar.open('Item deleted successfully', undefined, {duration: 3000, panelClass: ['snackbar-success']})
+      }
       this.router.navigate([`/admin/${this.collection}/${action}/${item.slug}`])
     } catch (error) {
       console.error(error)

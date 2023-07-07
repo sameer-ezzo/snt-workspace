@@ -8,6 +8,7 @@ import { BaseDataService } from '../../client/services/base-data.service';
 import { DataService } from '../../shared/data.service';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { environment } from 'apps/web/src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export type AntiqueSelectViewModel = { _id: string, name: string }
@@ -36,7 +37,9 @@ export class AuctionFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private ds: BaseDataService,
-    private http: HttpClient
+    private http: HttpClient,
+    private snackbar: MatSnackBar
+
   ) { }
 
   private _item: AuctionModel = new AuctionModel();
@@ -113,8 +116,9 @@ export class AuctionFormComponent implements OnInit {
 
       const _id = result?._id as string;
       this.item = { ...formData, _id } as any;
-    } catch (error) {
-      // console.error(error);
+    } catch (error:any) {
+      if(error.name === 'HttpErrorResponse') this.snackbar.open(error.error.message, 'Close',{panelClass: ['snackbar-error']})
+      else this.snackbar.open('Error has been happened', 'Close',{panelClass: ['snackbar-error']})
       
     } finally {
       this.loading = false;

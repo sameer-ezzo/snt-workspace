@@ -10,6 +10,8 @@ import {
 import { ActivatedRoute } from "@angular/router";
 import {
   Observable,
+  ReplaySubject,
+  catchError,
   combineLatest,
   filter,
   firstValueFrom,
@@ -19,8 +21,9 @@ import {
   tap,
 } from "rxjs";
 import { BaseDataService } from "../../client/services/base-data.service";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { environment } from "apps/web/src/environments/environment";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "antique-form",
@@ -46,11 +49,15 @@ export class AntiqueFormComponent implements OnInit {
     map((t) => t.filter((t) => t.parent === "status").map((t) => t._id))
   );
   loading = false;
-
+  snackbarErrorConfig = {
+    duration: 5000,
+    panelClass: ['snackbar-error']
+  }
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private snackbar: MatSnackBar
   ) {}
 
   antiqueForm = this.formBuilder.group<any>({
@@ -96,7 +103,7 @@ export class AntiqueFormComponent implements OnInit {
   ngOnInit() {}
 
   async save() {
-    if (this.antiqueForm.invalid) return; // show message
+    // if (this.antiqueForm.invalid) return; // show message
 
     const formData = { ...this.antiqueForm.value } as any; 
 
@@ -115,8 +122,11 @@ export class AntiqueFormComponent implements OnInit {
 
       const _id = result?._id as string;
       this.item = { ...formData, _id } as any;
-    } catch (error) {
-      // console.error(error);
+    } catch (error:any) {
+      
+      if(error.name === 'HttpErrorResponse') this.snackbar.open(error.error.message, 'Close',{panelClass: ['snackbar-error']})
+      else this.snackbar.open('Error has been happened', 'Close',{panelClass: ['snackbar-error']})
+     
     } finally {
       this.loading = false;
     }

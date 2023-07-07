@@ -111,3 +111,12 @@ mbe-4{
 .align-center{
     align-items: center;
 }
+
+.snackbar-error{
+    color: white;
+    background-color: rgba(255, 0, 0, 0.502);
+}
+.snackbar-success{
+    color: white;
+    background-color: rgba(14, 177, 14, 0.502);
+}
